@@ -1,12 +1,14 @@
 plugins {
-    alias(libs.plugins.android.application)
+    id("com.android.application")
+
+    // Add the ID of the plugin
+    id("com.google.firebase.appdistribution")
+
 }
 
 android {
     namespace = "com.example.finalsgroupblasting"
-    compileSdk {
-        version = release(36)
-    }
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.example.finalsgroupblasting"

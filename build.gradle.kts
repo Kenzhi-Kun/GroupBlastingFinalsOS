@@ -2,3 +2,18 @@
 plugins {
     alias(libs.plugins.android.application) apply false
 }
+
+buildscript {
+
+    repositories {
+        // Make sure that you have the following two repositories
+        google()  // Google's Maven repository
+        mavenCentral()  // Maven Central repository
+    }
+
+    dependencies {
+
+        // Add the Maven coordinates and latest version of the plugin
+        classpath ("com.google.firebase:firebase-appdistribution-gradle:5.2.0")
+    }
+}
