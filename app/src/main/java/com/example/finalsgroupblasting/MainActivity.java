@@ -1,5 +1,6 @@
 package com.example.finalsgroupblasting;
 
+import com.example.FinalOSBlasting.R;
 import com.google.firebase.auth.FirebaseAuth;
 import android.widget.EditText;
 import android.widget.Button;
@@ -38,4 +39,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
+
 }
