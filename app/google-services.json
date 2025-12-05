@@ -1,15 +1,15 @@
 {
   "project_info": {
     "project_number": "737305950752",
-    "project_id": "finalsgroupblasting-6eab4d18",
-    "storage_bucket": "finalsgroupblasting-6eab4d18.firebasestorage.app"
+    "project_id": "FinalOSBlasting-6eab4d18",
+    "storage_bucket": "FinalOSBlasting-6eab4d18.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
         "mobilesdk_app_id": "1:737305950752:android:1c341cc4c5ae49c5019a45",
         "android_client_info": {
-          "package_name": "com.company.FinalOSBlasting"
+          "package_name": "com.example.FinalOSBlasting"
         }
       },
       "oauth_client": [],

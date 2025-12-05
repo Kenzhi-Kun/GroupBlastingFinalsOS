@@ -1,17 +1,17 @@
 plugins {
     id("com.android.application")
-
+    id("com.google.gms.google-services")
     // Add the ID of the plugin
     id("com.google.firebase.appdistribution")
 
 }
 
 android {
-    namespace = "com.example.finalsgroupblasting"
+    namespace = "com.example.FinalOSBlasting"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.example.finalsgroupblasting"
+        applicationId = "com.example.FinalOSBlasting"
         minSdk = 27
         targetSdk = 36
         versionCode = 1
@@ -44,7 +44,6 @@ dependencies {
     implementation(libs.constraintlayout)
     implementation(libs.recyclerview)
     implementation(libs.fragment)
-    implementation(libs.firebase.auth)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

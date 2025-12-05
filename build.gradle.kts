@@ -15,5 +15,6 @@ buildscript {
 
         // Add the Maven coordinates and latest version of the plugin
         classpath ("com.google.firebase:firebase-appdistribution-gradle:5.2.0")
+        classpath ("com.google.gms:google-services:4.4.2")
     }
 }
