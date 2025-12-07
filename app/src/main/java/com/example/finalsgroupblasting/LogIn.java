@@ -11,6 +11,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.Objects;
+
 public class LogIn extends AppCompatActivity {
     private EditText emailInput;
     private EditText passwordInput;
@@ -80,13 +82,11 @@ public class LogIn extends AppCompatActivity {
 
                     if (task.isSuccessful()) {
                         Toast.makeText(LogIn.this, "Login Successful!", Toast.LENGTH_SHORT).show();
-                        // TODO: Navigate to the main content of your app
                         Intent intent = new Intent(LogIn.this, HomeActivity.class);
                         startActivity(intent);
-                        finish(); // Close the login activity
+                        finish();
                     } else {
-                        // Provide a more specific error message from Firebase
-                        Toast.makeText(LogIn.this, "Authentication Failed: " + task.getException().getMessage(),
+                        Toast.makeText(LogIn.this, "Authentication Failed: " + Objects.requireNonNull(task.getException()).getMessage(),
                                 Toast.LENGTH_LONG).show();
                     }
                 });
