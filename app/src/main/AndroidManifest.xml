@@ -11,23 +11,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FinalsGroupBlasting">
-
-
+        <activity
+            android:name="com.example.finalsgroupblasting.HomeActivity"
+            android:exported="false" />
         <activity
             android:name="com.example.finalsgroupblasting.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
         <activity
             android:name="com.example.finalsgroupblasting.LogIn"
-            android:exported="false">
-        </activity>
-
+            android:exported="false"></activity>
     </application>
 
 </manifest>

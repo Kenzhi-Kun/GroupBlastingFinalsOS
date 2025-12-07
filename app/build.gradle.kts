@@ -7,8 +7,12 @@ plugins {
 }
 
 android {
-    namespace = "com.example.FinalOSBlasting"
+    namespace = "com.example.finalsgroupblasting"
     compileSdk = 36
+
+    buildFeatures {
+        viewBinding = true
+    }
 
     defaultConfig {
         applicationId = "com.example.FinalOSBlasting"
