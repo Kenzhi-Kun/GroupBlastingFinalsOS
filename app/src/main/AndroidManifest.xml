@@ -26,6 +26,9 @@
         <activity
             android:name="com.example.finalsgroupblasting.LogIn"
             android:exported="false"></activity>
+        <activity
+            android:name="com.example.finalsgroupblasting.SignUp"
+            android:exported="false"></activity>
     </application>
 
 </manifest>

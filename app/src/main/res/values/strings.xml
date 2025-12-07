@@ -11,4 +11,9 @@
     <string name="enter_email">Enter Email</string>
     <string name="enter_username">Enter Username</string>
     <string name="email">Email</string>
+    <string name="sign_up_for_the_safety_of_your_official_files">Sign Up for the Safety of Your Official Files</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="enter_your_password">Enter your Password</string>
+    <string name="enter_your_email">Enter your Email</string>
+    <string name="enter_your_username">Enter your Username</string>
 </resources>

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.os.Bundle;
 import androidx.activity.EdgeToEdge;
@@ -33,6 +34,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, LogIn.class));
+            }
+        });
+        
+        TextView signUp = findViewById(R.id.signUpText);
+        signUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, SignUp.class));
+
             }
         });
     }
