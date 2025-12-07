@@ -31,7 +31,7 @@
         app:srcCompat="@drawable/outline_account_circle_24" />
 
     <EditText
-        android:id="@+id/username_input"
+        android:id="@+id/email_input"
         android:layout_width="357dp"
         android:layout_height="48dp"
         android:autofillHints=""

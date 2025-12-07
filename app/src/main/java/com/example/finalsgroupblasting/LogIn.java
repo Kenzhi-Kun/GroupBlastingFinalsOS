@@ -15,7 +15,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class LogIn extends AppCompatActivity {
-    private EditText editTextUsername;
     private EditText editTextEmail;
     private EditText editTextPassword;
 
@@ -25,20 +24,16 @@ public class LogIn extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        editTextUsername = findViewById(R.id.username_input);
         editTextEmail = findViewById(R.id.email_input);
         editTextPassword = findViewById(R.id.password_input);
-
+        Button login = findViewById(R.id.login_button);
         auth = FirebaseAuth.getInstance();
 
-        setContentView(com.example.FinalOSBlasting.R.layout.login_ui);
-
-        Button login = findViewById(R.id.login_btn);
+        setContentView(com.example.FinalOSBlasting.R.layout.log_in);
         login.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                String username = editTextUsername.getText().toString();
                 String email = editTextEmail.getText().toString();
                 String password = editTextPassword.getText().toString();
                 loginUser(email, password);
@@ -52,7 +47,7 @@ public class LogIn extends AppCompatActivity {
             @Override
             public void onSuccess(AuthResult authResult) {
                 Toast.makeText(LogIn.this, "Login Successful", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(LogIn.this, MainActivity.class));
+                startActivity(new Intent(LogIn.this, MainMenuUI.class));
                 finish();
             }
         });
