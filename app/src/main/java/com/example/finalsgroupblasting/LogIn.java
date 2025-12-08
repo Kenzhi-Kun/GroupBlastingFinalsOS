@@ -80,24 +80,23 @@ public class LogIn extends AppCompatActivity {
                     progressBar.setVisibility(View.GONE);
                     loginButton.setEnabled(true);
 
-                    String lawPass = "lawgiver069";
-                    String southPass = "Timog";
+                    if (task.isSuccessful()) {
+                        String lawPass = "lawgiver069";
+                        String southPass = "Timog";
 
-                    if (task.isSuccessful() && password.equals(lawPass)) {
-                        Toast.makeText(LogIn.this, "Login Successful!", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(LogIn.this, MainMenuUI.class);
-                        startActivity(intent);
-                        finish();
-                    } else {
-                        Toast.makeText(LogIn.this, "Authentication Failed: " + Objects.requireNonNull(task.getException()).getMessage(),
-                                Toast.LENGTH_LONG).show();
-                    }
-
-                    if (task.isSuccessful() && password.equals(southPass)) {
-                        Toast.makeText(LogIn.this, "Login Successful!", Toast.LENGTH_SHORT).show();
-                        Intent intent2 = new Intent(LogIn.this, HomeActivity.class);
-                        startActivity(intent2);
-                        finish();
+                        if (password.equals(lawPass)) {
+                            Toast.makeText(LogIn.this, "Login Successful!", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(LogIn.this, MainMenuUI.class);
+                            startActivity(intent);
+                            finish();
+                        } else if (password.equals(southPass)) {
+                            Toast.makeText(LogIn.this, "Login Successful!", Toast.LENGTH_SHORT).show();
+                            Intent intent2 = new Intent(LogIn.this, HomeActivity.class);
+                            startActivity(intent2);
+                            finish();
+                        } else {
+                            Toast.makeText(LogIn.this, "Login successful, but role not recognized.", Toast.LENGTH_LONG).show();
+                        }
                     } else {
                         Toast.makeText(LogIn.this, "Authentication Failed: " + Objects.requireNonNull(task.getException()).getMessage(),
                                 Toast.LENGTH_LONG).show();
@@ -105,5 +104,3 @@ public class LogIn extends AppCompatActivity {
                 });
     }
 }
-
-
