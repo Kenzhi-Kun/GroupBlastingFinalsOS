@@ -15,7 +15,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.HashMap;
 import java.util.Objects;
 
 public class SignUp extends AppCompatActivity {
@@ -84,6 +86,19 @@ public class SignUp extends AppCompatActivity {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
+
+                        FirebaseDatabase database = FirebaseDatabase.getInstance();
+                        HashMap<String, Object> map = new HashMap<>();
+                        map.put("Username: ", userName);
+                        map.put("Email: ", email);
+                        map.put("Password: ", password);
+
+                        FirebaseDatabase.getInstance().getReference("USERS").child("CLIENT").updateChildren(map);
+
+
+
+
+
                         Toast.makeText(SignUp.this, "Sign Up successfully", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(SignUp.this, MainActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
