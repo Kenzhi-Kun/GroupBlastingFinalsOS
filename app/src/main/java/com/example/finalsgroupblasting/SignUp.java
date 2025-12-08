@@ -86,7 +86,6 @@ public class SignUp extends AppCompatActivity {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
-
                         Toast.makeText(SignUp.this, "Sign Up successfully", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(SignUp.this, MainActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
