@@ -87,14 +87,20 @@ public class SignUp extends AppCompatActivity {
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
 
-                        FirebaseDatabase database = FirebaseDatabase.getInstance();
+                        // Get the unique ID of the user who was just created
+                        String userId = mAuth.getCurrentUser().getUid();
+
+                        // Create a map to hold the user's data
                         HashMap<String, Object> map = new HashMap<>();
-                        map.put("Username: ", userName);
-                        map.put("Email: ", email);
-                        map.put("Password: ", password);
+                        map.put("username", userName); // Use simple keys without spaces
+                        map.put("email", email);
+                        // IMPORTANT: Never save plain text passwords to your database!
+                        // The password is already securely stored in Firebase Auth.
 
-                        FirebaseDatabase.getInstance().getReference("USERS").child("CLIENT").updateChildren(map);
-
+                        // Get a reference to the "Users" node and save the data under the user's unique ID
+                        FirebaseDatabase.getInstance().getReference("USERS").child("CLIENT")
+                                .child(userId)
+                                .setValue(map);
 
 
 
