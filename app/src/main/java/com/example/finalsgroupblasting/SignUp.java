@@ -87,24 +87,6 @@ public class SignUp extends AppCompatActivity {
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
 
-                        // Get the unique ID of the user who was just created
-                        String userId = mAuth.getCurrentUser().getUid();
-
-                        // Create a map to hold the user's data
-                        HashMap<String, Object> map = new HashMap<>();
-                        map.put("username", userName); // Use simple keys without spaces
-                        map.put("email", email);
-                        // IMPORTANT: Never save plain text passwords to your database!
-                        // The password is already securely stored in Firebase Auth.
-
-                        // Get a reference to the "Users" node and save the data under the user's unique ID
-                        FirebaseDatabase.getInstance().getReference("USERS").child("CLIENT")
-                                .child(userId)
-                                .setValue(map);
-
-
-
-
                         Toast.makeText(SignUp.this, "Sign Up successfully", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(SignUp.this, MainActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
