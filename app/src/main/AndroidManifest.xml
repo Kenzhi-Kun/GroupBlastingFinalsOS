@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FinalsGroupBlasting">
         <activity
+            android:name=".ClientFiles"
+            android:exported="false" />
+        <activity
             android:name=".ClientAppointment"
             android:exported="false" />
         <activity
