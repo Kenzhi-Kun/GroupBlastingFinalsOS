@@ -26,6 +26,7 @@ public class ClientUpload extends AppCompatActivity {
         setContentView(R.layout.client_upload_file_ui);
 
 
+
     }
 
 

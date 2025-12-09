@@ -1,7 +1,12 @@
 package com.example.finalsgroupblasting;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,13 +23,50 @@ import com.google.firebase.auth.FirebaseUser;
 public class MainMenuUI extends AppCompatActivity {
     private TextView userLawTextView;
 
+    private ImageView appointmentButton;
+    private ImageView uploadButton;
+    private ImageView filesButton;
+    private Button logoutButton;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_menu_ui);
 
+
+
         userLawTextView = findViewById(R.id.user_law);
+
+        uploadButton = findViewById(R.id.upload_menu_lawyer);
+        filesButton = findViewById(R.id.files_menu_lawyer);
+        appointmentButton = findViewById(R.id.appointment_menu_lawyer);
+
         displayUsername();
+
+        uploadButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainMenuUI.this, ClientUpload.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        filesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainMenuUI.this, "This feature is currently not available", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+        appointmentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainMenuUI.this, "This feature is currently not available", Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 

@@ -354,7 +354,7 @@
         app:layout_constraintVertical_bias="0.191" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/appointment_menu_lawyer"
         android:layout_width="40dp"
         android:layout_height="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -381,7 +381,7 @@
         app:layout_constraintVertical_bias="0.983" />
 
     <ImageView
-        android:id="@+id/imageView5"
+        android:id="@+id/upload_menu_lawyer"
         android:layout_width="40dp"
         android:layout_height="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -408,7 +408,7 @@
         app:layout_constraintVertical_bias="0.983" />
 
     <ImageView
-        android:id="@+id/imageView6"
+        android:id="@+id/files_menu_lawyer"
         android:layout_width="40dp"
         android:layout_height="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
