@@ -78,6 +78,15 @@ public class ClientAppointment extends AppCompatActivity {
                 Toast.makeText(ClientAppointment.this, "Selected Date: " + date, Toast.LENGTH_SHORT).show();
             }
         });
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                String date = (month + 1) + "/" + dayOfMonth + "/" + year;
+                Toast.makeText(ClientAppointment.this, "Selected Date: " + date, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
 
 
 
