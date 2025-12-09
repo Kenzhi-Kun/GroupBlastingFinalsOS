@@ -11,7 +11,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.finalsgroupblasting.R;
 
 public class HomeActivity extends AppCompatActivity {
-//Lawyer Side UI
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
