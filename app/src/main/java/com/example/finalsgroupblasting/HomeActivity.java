@@ -61,6 +61,7 @@ public class HomeActivity extends AppCompatActivity {
         uploadButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(HomeActivity.this, ClientUpload.class);
+                startActivity(intent);
             }
         });
 
