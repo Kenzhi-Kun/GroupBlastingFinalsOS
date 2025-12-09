@@ -85,14 +85,12 @@ public class LogIn extends AppCompatActivity {
 
                         if (password.equals(lawPass)) {
                             Toast.makeText(LogIn.this, "Login Successful!", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(LogIn.this, MainMenuUI.class);
+                            Intent intent = new Intent(LogIn.this, MainMenuLawyer.class);
                             startActivity(intent);
-                            finish();
                         } else {
                             Toast.makeText(LogIn.this, "Login Successful!", Toast.LENGTH_SHORT).show();
                             Intent intent2 = new Intent(LogIn.this, HomeActivity.class);
                             startActivity(intent2);
-                            finish();
                         }
 
                     } else {

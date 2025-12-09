@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FinalsGroupBlasting">
         <activity
+            android:name=".MainMenuLawyer"
+            android:exported="false" />
+        <activity
             android:name=".ListOfClients"
             android:exported="false" />
         <activity
