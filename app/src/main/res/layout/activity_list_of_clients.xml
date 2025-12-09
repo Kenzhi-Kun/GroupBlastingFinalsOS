@@ -5,26 +5,10 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ClientUpload">
-
-    <EditText
-        android:id="@+id/userNameSignUpInput2"
-        android:layout_width="207dp"
-        android:layout_height="31dp"
-        android:autofillHints=""
-        android:background="@drawable/rounded_corner"
-        android:hint="Enter file name"
-        android:inputType="text"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.549"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.527" />
+    tools:context=".ListOfClients">
 
     <TextView
-        android:id="@+id/textView13"
+        android:id="@+id/textView23"
         android:layout_width="568dp"
         android:layout_height="81dp"
         android:background="@drawable/blue_rectange_shape"
@@ -36,7 +20,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/textView16"
+        android:id="@+id/textView24"
         android:layout_width="500dp"
         android:layout_height="75dp"
         android:background="@drawable/blue_rectange_shape"
@@ -47,7 +31,7 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
-        android:id="@+id/welcome4"
+        android:id="@+id/welcome8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/roboto_medium"
@@ -62,22 +46,7 @@
         app:layout_constraintVertical_bias="0.02" />
 
     <TextView
-        android:id="@+id/welcome10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/roboto_medium"
-        android:text="File name:"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.027"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.524" />
-
-    <TextView
-        android:id="@+id/user_name7"
+        android:id="@+id/user_name15"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/roboto_medium"
@@ -92,7 +61,39 @@
         app:layout_constraintVertical_bias="0.065" />
 
     <TextView
-        android:id="@+id/logoutTextBtn3"
+        android:id="@+id/user_name16"
+        android:layout_width="283dp"
+        android:layout_height="84dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="Hello!"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="60sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.29" />
+
+    <TextView
+        android:id="@+id/user_name17"
+        android:layout_width="283dp"
+        android:layout_height="84dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="This is your list of clients  page :)"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.445" />
+
+    <TextView
+        android:id="@+id/logoutTextBtn7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif"
@@ -107,7 +108,7 @@
         app:layout_constraintVertical_bias="0.037" />
 
     <ImageView
-        android:id="@+id/appointment_home_client3"
+        android:id="@+id/appointment_home_client7"
         android:layout_width="40dp"
         android:layout_height="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -119,7 +120,7 @@
         app:srcCompat="@drawable/outline_calendar_month_24" />
 
     <TextView
-        android:id="@+id/textViewCalendar3"
+        android:id="@+id/textViewCalendar8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif"
@@ -134,7 +135,7 @@
         app:layout_constraintVertical_bias="0.983" />
 
     <ImageView
-        android:id="@+id/upload_home_client3"
+        android:id="@+id/upload_home_client7"
         android:layout_width="40dp"
         android:layout_height="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -146,7 +147,7 @@
         app:srcCompat="@drawable/outline_arrow_circle_up_24" />
 
     <TextView
-        android:id="@+id/textViewUpload4"
+        android:id="@+id/textViewUpload8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif"
@@ -161,7 +162,7 @@
         app:layout_constraintVertical_bias="0.983" />
 
     <ImageView
-        android:id="@+id/files_home_client3"
+        android:id="@+id/files_home_client7"
         android:layout_width="40dp"
         android:layout_height="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -173,7 +174,7 @@
         app:srcCompat="@drawable/baseline_folder_open_24" />
 
     <TextView
-        android:id="@+id/textViewFiles4"
+        android:id="@+id/textViewFiles8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif"
@@ -186,60 +187,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.983" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="194dp"
-        android:layout_height="189dp"
-        android:src="@drawable/blue_rectange_shape"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.483"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.274" />
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="214dp"
-        android:layout_height="162dp"
-        android:src="@drawable/sharp_attach_file_add_24"
-        app:layout_constraintBottom_toBottomOf="@+id/textView16"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.286" />
-
-    <CheckBox
-        android:id="@+id/checkBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Affidavit"
-        tools:layout_editor_absoluteX="253dp"
-        tools:layout_editor_absoluteY="412dp" />
-
-    <CheckBox
-        android:id="@+id/checkBox2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Contract"
-        tools:layout_editor_absoluteX="253dp"
-        tools:layout_editor_absoluteY="460dp" />
-
-    <CheckBox
-        android:id="@+id/checkBox3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Wills"
-        tools:layout_editor_absoluteX="253dp"
-        tools:layout_editor_absoluteY="508dp" />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="121dp"
-        android:layout_height="60dp"
-        android:text="Save"
-        tools:layout_editor_absoluteX="50dp"
-        tools:layout_editor_absoluteY="484dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
