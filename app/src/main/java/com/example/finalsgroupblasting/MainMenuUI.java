@@ -37,7 +37,6 @@ public class MainMenuUI extends AppCompatActivity {
 
 
         userLawTextView = findViewById(R.id.user_law);
-
         uploadButton = findViewById(R.id.upload_menu_lawyer);
         filesButton = findViewById(R.id.files_menu_lawyer);
         appointmentButton = findViewById(R.id.appointment_menu_lawyer);
