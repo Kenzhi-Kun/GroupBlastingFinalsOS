@@ -3,10 +3,13 @@ package com.example.finalsgroupblasting;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CalendarView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -20,6 +23,7 @@ public class ClientAppointment extends AppCompatActivity {
     private ImageView filesButton;
     private TextView logoutButton;
     private TextView userName;
+    private CalendarView calendarView;
 
 
     @Override
@@ -31,6 +35,7 @@ public class ClientAppointment extends AppCompatActivity {
         filesButton = findViewById(R.id.files_home_client4);
         logoutButton = findViewById(R.id.logoutTextBtn4);
         userName = findViewById(R.id.user_name5);
+        calendarView = findViewById(R.id.calendarView);
         displayUsername();
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -63,6 +68,14 @@ public class ClientAppointment extends AppCompatActivity {
                 Intent intent3 = new Intent(ClientAppointment.this, MainActivity.class);
                 startActivity(intent3);
                 finish();
+            }
+        });
+
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                String date = (month + 1) + "/" + dayOfMonth + "/" + year;
+                Toast.makeText(ClientAppointment.this, "Selected Date: " + date, Toast.LENGTH_SHORT).show();
             }
         });
 
