@@ -61,22 +61,6 @@
         app:layout_constraintVertical_bias="0.065" />
 
     <TextView
-        android:id="@+id/user_name9"
-        android:layout_width="283dp"
-        android:layout_height="84dp"
-        android:fontFamily="@font/roboto_medium"
-        android:text="This is your Appointment :)"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textColor="@color/black"
-        android:textSize="34sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.33" />
-
-    <TextView
         android:id="@+id/logoutTextBtn4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -171,4 +155,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.983" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -19,7 +19,6 @@ public class ClientAppointment extends AppCompatActivity {
     private ImageView uploadButton;
     private ImageView filesButton;
     private TextView logoutButton;
-
     private TextView userName;
 
 
