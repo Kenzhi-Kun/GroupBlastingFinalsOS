@@ -65,7 +65,10 @@ public class MainMenuUI extends AppCompatActivity {
         appointmentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainMenuUI.this, "This feature is currently not available", Toast.LENGTH_SHORT).show();
+                Intent intent3 = new Intent(MainMenuUI.this, LawyerAppointment.class);
+                startActivity(intent3);
+                finish();
+
             }
         });
 
@@ -73,8 +76,8 @@ public class MainMenuUI extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(MainMenuUI.this, MainActivity.class);
-                startActivity(intent);
+                Intent intent4 = new Intent(MainMenuUI.this, MainActivity.class);
+                startActivity(intent4);
                 finish();
             }
         });
