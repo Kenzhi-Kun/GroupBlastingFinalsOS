@@ -1,0 +1,30 @@
+<div class="card">
+  <h2>Book an Appointment</h2>
+
+  <form action="/book" method="POST">
+
+    <label>Choose Lawyer:</label>
+    <select name="lawyer_id">
+      <option value="1">Atty. Kenzhi</option>
+      <option value="2">Atty. SalSal Ah Koh</option>
+    </select>
+
+    <label>Your Name:</label>
+    <input type="text" name="client_name" required>
+
+    <label>Case Type:</label>
+    <input type="text" name="case_type" required>
+
+    <label>Date:</label>
+    <input type="date" name="date" required>
+
+    <label>Start Time:</label>
+    <input type="time" name="start" required>
+
+    <label>End Time:</label>
+    <input type="time" name="end" required>
+
+    <button type="submit">Book Appointment</button>
+
+  </form>
+</div>
