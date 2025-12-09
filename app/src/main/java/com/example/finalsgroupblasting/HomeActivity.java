@@ -27,6 +27,9 @@ public class HomeActivity extends AppCompatActivity {
     private ImageView filesButton;
     private ImageView appointmentButton;
 
+    private TextView logoutTextBtn;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +39,7 @@ public class HomeActivity extends AppCompatActivity {
         appointmentButton = findViewById(R.id.appointment_home_client);
         uploadButton = findViewById(R.id.upload_home_client);
         filesButton = findViewById(R.id.files_home_client);
+        logoutTextBtn = findViewById(R.id.logoutTextBtn);
 
         userNameTextView = findViewById(R.id.user_name);
 
@@ -65,7 +69,16 @@ public class HomeActivity extends AppCompatActivity {
                 Toast.makeText(HomeActivity.this, "This feature is not currently available.", Toast.LENGTH_SHORT).show();
             }
         });
-    }
+
+        logoutTextBtn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(HomeActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        }
 
     private void displayUsername() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();

@@ -26,7 +26,7 @@ public class MainMenuUI extends AppCompatActivity {
     private ImageView appointmentButton;
     private ImageView uploadButton;
     private ImageView filesButton;
-    private Button logoutButton;
+    private TextView logoutButton;
 
 
     @Override
@@ -41,6 +41,7 @@ public class MainMenuUI extends AppCompatActivity {
         uploadButton = findViewById(R.id.upload_menu_lawyer);
         filesButton = findViewById(R.id.files_menu_lawyer);
         appointmentButton = findViewById(R.id.appointment_menu_lawyer);
+        logoutButton = findViewById(R.id.logoutButton);
 
         displayUsername();
 
@@ -68,6 +69,15 @@ public class MainMenuUI extends AppCompatActivity {
             }
         });
 
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(MainMenuUI.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     public void displayUsername() {
