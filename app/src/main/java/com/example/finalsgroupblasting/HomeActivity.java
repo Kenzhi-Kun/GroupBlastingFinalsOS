@@ -4,7 +4,6 @@ package com.example.finalsgroupblasting;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,8 +14,6 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.finalsgroupblasting.R;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -26,7 +23,6 @@ public class HomeActivity extends AppCompatActivity {
     private ImageView uploadButton;
     private ImageView filesButton;
     private ImageView appointmentButton;
-
     private TextView logoutTextBtn;
 
 
@@ -53,15 +49,15 @@ public class HomeActivity extends AppCompatActivity {
 
         appointmentButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Toast.makeText(HomeActivity.this, "This feature is not currently available.", Toast.LENGTH_SHORT).show();
-
+                Intent intent = new Intent(HomeActivity.this, ClientAppointment.class);
+                startActivity(intent);
             }
         });
 
         uploadButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, ClientUpload.class);
-                startActivity(intent);
+                Intent intent2 = new Intent(HomeActivity.this, ClientUpload.class);
+                startActivity(intent2);
             }
         });
 
@@ -74,8 +70,8 @@ public class HomeActivity extends AppCompatActivity {
         logoutTextBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(HomeActivity.this, MainActivity.class);
-                startActivity(intent);
+                Intent intent4 = new Intent(HomeActivity.this, MainActivity.class);
+                startActivity(intent4);
                 finish();
             }
         });

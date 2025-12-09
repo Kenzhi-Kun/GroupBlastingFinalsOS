@@ -65,7 +65,7 @@ public class MainMenuUI extends AppCompatActivity {
         appointmentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent3 = new Intent(MainMenuUI.this, LawyerAppointment.class);
+                Intent intent3 = new Intent(MainMenuUI.this, ClientAppointment.class);
                 startActivity(intent3);
                 finish();
 

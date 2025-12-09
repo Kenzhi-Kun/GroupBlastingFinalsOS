@@ -12,10 +12,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FinalsGroupBlasting">
         <activity
-            android:name="com.example.finalsgroupblasting.HomeActivity"
+            android:name=".ClientAppointment"
             android:exported="false" />
         <activity
-            android:name="com.example.finalsgroupblasting.MainActivity"
+            android:name=".ClientUpload"
+            android:exported="false" />
+        <activity
+            android:name=".HomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,14 +30,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.finalsgroupblasting.LogIn"
-            android:exported="false"></activity>
+            android:name=".LogIn"
+            android:exported="false" />
         <activity
-            android:name="com.example.finalsgroupblasting.SignUp"
-            android:exported="false"></activity>
+            android:name=".SignUp"
+            android:exported="false" />
         <activity
-            android:name="com.example.finalsgroupblasting.MainMenuUI"
-            android:exported="false"></activity>
+            android:name=".MainMenuUI"
+            android:exported="false" />
     </application>
 
 </manifest>
