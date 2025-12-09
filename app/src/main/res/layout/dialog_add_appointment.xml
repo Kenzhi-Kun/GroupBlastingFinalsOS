@@ -9,13 +9,15 @@
         android:id="@+id/appointmentTitleInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Appointment Title" />
+        android:hint="Appointment Title"
+        android:minHeight="48dp" />
 
     <EditText
         android:id="@+id/appointmentTimeInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Appointment Time (e.g., 10:00 AM)" />
+        android:hint="Appointment Time (e.g., 10:00 AM)"
+        android:minHeight="48dp" />
 
     <Button
         android:id="@+id/saveAppointmentButton"
