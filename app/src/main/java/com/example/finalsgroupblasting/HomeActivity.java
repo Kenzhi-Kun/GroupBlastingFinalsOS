@@ -63,7 +63,8 @@ public class HomeActivity extends AppCompatActivity {
 
         filesButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Toast.makeText(HomeActivity.this, "This feature is not currently available.", Toast.LENGTH_SHORT).show();
+                Intent intent3 = new Intent(HomeActivity.this, ClientFiles.class);
+                startActivity(intent3);
             }
         });
 
