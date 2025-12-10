@@ -86,6 +86,7 @@ public class ClientAppointment extends AppCompatActivity {
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
                 Intent intent3 = new Intent(ClientAppointment.this, MainActivity.class);
                 startActivity(intent3);
                 finish();

@@ -31,7 +31,7 @@ public class LawyerUpload extends AppCompatActivity {
         setContentView(R.layout.activity_lawyer_upload);
 
         appointmentButton = findViewById(R.id.appointment_home_client2);
-        uploadButton = findViewById(R.id.user_name2);
+        uploadButton = findViewById(R.id.upload_home_client2);
         listOfClients = findViewById(R.id.files_home_client2);
         logoutTextBtn = findViewById(R.id.logoutTextBtn2);
 

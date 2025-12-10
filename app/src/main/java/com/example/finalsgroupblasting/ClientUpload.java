@@ -66,6 +66,7 @@ public class ClientUpload extends AppCompatActivity {
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
                 Intent intent3 = new Intent(ClientUpload.this, MainActivity.class);
                 startActivity(intent3);
                 finish();

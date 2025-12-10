@@ -45,9 +45,10 @@ public class MainMenuLawyer extends AppCompatActivity {
         displayUsername();
 
         appointmentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainMenuLawyer.this, LawyerAppointment.class);
-                startActivity(intent);
+                Intent intent2 = new Intent(MainMenuLawyer.this, LawyerAppointment.class);
+                startActivity(intent2);
             }
         });
 
