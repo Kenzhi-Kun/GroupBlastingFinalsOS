@@ -131,7 +131,6 @@ public class ClientAppointment extends AppCompatActivity {
 
         String time2 = time.getText().toString();
         String date2 = date.getText().toString();
-
         String key = database.push().getKey();
 
         if (time2.isEmpty() || date2.isEmpty()) {
@@ -143,8 +142,6 @@ public class ClientAppointment extends AppCompatActivity {
         hash.put("user", user.getEmail());
         hash.put("date", date2);
         hash.put("time", time2);
-
-
 
         database.child(key).setValue(hash)
                 .addOnCompleteListener(task -> {
