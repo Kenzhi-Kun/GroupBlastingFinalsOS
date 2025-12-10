@@ -64,8 +64,6 @@ public class LawyerUpload extends AppCompatActivity {
             }
         });
 
-
-
         logoutTextBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
@@ -74,7 +72,6 @@ public class LawyerUpload extends AppCompatActivity {
                 finish();
             }
         });
-
 
     }
 
