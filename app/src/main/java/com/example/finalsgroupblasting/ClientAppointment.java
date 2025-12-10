@@ -126,33 +126,70 @@ public class ClientAppointment extends AppCompatActivity {
     }
 
     public void generateAppointment() {
-        DatabaseReference database = FirebaseDatabase.getInstance("https://finalsgroupblasting-6eab4d18-default-rtdb.firebaseio.com/").getReference("appointment");
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (user == null) {
+            Toast.makeText(this, "Error: User is not signed in.", Toast.LENGTH_SHORT).show();
+            return; // Stop the function
+        }
 
         String time2 = time.getText().toString();
         String date2 = date.getText().toString();
-        String key = database.push().getKey();
 
         if (time2.isEmpty() || date2.isEmpty()) {
             Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        HashMap<String, Object> hash = new HashMap<>();
-        hash.put("user", user.getEmail());
-        hash.put("date", date2);
-        hash.put("time", time2);
+        DatabaseReference database = FirebaseDatabase.getInstance("https://finalsgroupblasting-6eab4d18-default-rtdb.firebaseio.com/").getReference("appointment");
 
-        database.child(key).setValue(hash)
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                               Toast.makeText(this, "Appointment added!", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(this, "Appointment Failed!", Toast.LENGTH_SHORT).show();
+        database.orderByChild("date").equalTo(date2).addListenerForSingleValueEvent(new com.google.firebase.database.ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull com.google.firebase.database.DataSnapshot snapshot) {
+                boolean isDuplicate = false;
+                if (snapshot.exists()) {
+
+                    for (com.google.firebase.database.DataSnapshot appointmentSnapshot : snapshot.getChildren()) {
+                        String existingTime = appointmentSnapshot.child("time").getValue(String.class);
+                        if (existingTime != null && existingTime.equals(time2)) {
+
+                            isDuplicate = true;
+                            break;
+                        }
                     }
-                });
-    }
+                }
 
+                if (isDuplicate) {
+
+                    Toast.makeText(ClientAppointment.this, "This appointment slot is already taken.", Toast.LENGTH_SHORT).show();
+
+                } else {
+
+                    String key = database.push().getKey();
+                    HashMap<String, Object> hash = new HashMap<>();
+                    hash.put("user", user.getEmail());
+                    hash.put("date", date2);
+                    hash.put("time", time2);
+
+                    if (key != null) {
+                        database.child(key).setValue(hash)
+                                .addOnCompleteListener(task -> {
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(ClientAppointment.this, "Appointment added!", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(ClientAppointment.this, "Appointment Failed: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                                    }
+                                });
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull com.google.firebase.database.DatabaseError error) {
+
+                Toast.makeText(ClientAppointment.this, "Database Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
     public void displayUsername() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
