@@ -28,6 +28,7 @@ public class SignUp extends AppCompatActivity {
     private EditText editTextEmail;
     private EditText editTextPassword;
     private Button signUpButton;
+    private Button backButton;
     private FirebaseAuth mAuth;
 
     @Override
@@ -39,9 +40,18 @@ public class SignUp extends AppCompatActivity {
         editTextEmail = findViewById(R.id.emailSignUpInput);
         editTextPassword = findViewById(R.id.passwordSignUpInput);
         signUpButton = findViewById(R.id.button);
+        backButton = findViewById(R.id.back1);
         mAuth = FirebaseAuth.getInstance();
 
         signUpButton.setOnClickListener(v -> registerUser());
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SignUp.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void registerUser() {

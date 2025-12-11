@@ -19,6 +19,7 @@ public class LogIn extends AppCompatActivity {
     private Button loginButton;
     private EditText userNameInput;
     private ProgressBar progressBar;
+    private Button backButton;
     private FirebaseAuth mAuth;
 
     @Override
@@ -33,10 +34,20 @@ public class LogIn extends AppCompatActivity {
         passwordInput = findViewById(R.id.password_input);
         loginButton = findViewById(R.id.login_button);
         progressBar = findViewById(R.id.login_progress_bar);
+        backButton = findViewById(R.id.back2);
 
         loginButton.setOnClickListener(v -> {
             validateAndLogin();
         });
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LogIn.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     private void validateAndLogin() {
