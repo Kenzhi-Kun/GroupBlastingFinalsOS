@@ -15,6 +15,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class ClientFiles extends AppCompatActivity {
 
@@ -23,6 +24,8 @@ public class ClientFiles extends AppCompatActivity {
     private ImageView filesButton;
     private ImageView appointmentButton;
     private TextView logoutTextBtn;
+    private TextView userName;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +40,9 @@ public class ClientFiles extends AppCompatActivity {
         uploadButton = findViewById(R.id.upload_home_client6);
         filesButton = findViewById(R.id.files_home_client6);
         logoutTextBtn = findViewById(R.id.logoutTextBtn6);
+        userName = findViewById(R.id.user_name13);
+
+        displayUsername();
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -66,5 +72,20 @@ public class ClientFiles extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    public void displayUsername() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (user != null) {
+            String userNameHere = user.getDisplayName();
+            if (userNameHere != null && !userNameHere.isEmpty()) {
+                userName.setText(userNameHere);
+            } else {
+                userName.setText("Anonymous");
+            }
+        } else {
+            userName.setText("Anonymous");
+        }
     }
 }
