@@ -136,7 +136,7 @@ public class ClientAppointment extends AppCompatActivity {
 
         if (user == null) {
             Toast.makeText(this, "Error: User is not signed in.", Toast.LENGTH_SHORT).show();
-            return; // Stop the function
+            return;
         }
 
         String time2 = time.getText().toString();
