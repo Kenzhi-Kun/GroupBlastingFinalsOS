@@ -7,24 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".ClientAppointment">
 
-    <EditText
-        android:id="@+id/time_input"
-        android:layout_width="151dp"
-        android:layout_height="37dp"
-        android:autofillHints=""
-        android:background="@drawable/rounded_corner"
-        android:hint="  Input time"
-        android:inputType="text"
-        android:textColor="@color/black"
-        android:textColorHint="@color/black"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.784"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.779" />
-
     <TextView
         android:id="@+id/textView17"
         android:layout_width="568dp"
@@ -64,6 +46,39 @@
         app:layout_constraintVertical_bias="0.02" />
 
     <TextView
+        android:id="@+id/time1"
+        android:layout_width="108dp"
+        android:layout_height="29dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="N/A"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.227"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.792" />
+
+    <EditText
+        android:id="@+id/time_input"
+        android:layout_width="151dp"
+        android:layout_height="37dp"
+        android:autofillHints=""
+        android:background="@drawable/rounded_corner"
+        android:hint="  Input time"
+        android:inputType="text"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.784"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.747" />
+
+    <TextView
         android:id="@+id/welcome9"
         android:layout_width="53dp"
         android:layout_height="28dp"
@@ -76,7 +91,7 @@
         app:layout_constraintHorizontal_bias="0.044"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.783" />
+        app:layout_constraintVertical_bias="0.751" />
 
     <TextView
         android:id="@+id/date1"
@@ -91,22 +106,20 @@
         app:layout_constraintHorizontal_bias="0.228"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.78" />
+        app:layout_constraintVertical_bias="0.748" />
 
-    <TextView
-        android:id="@+id/time1"
-        android:layout_width="108dp"
-        android:layout_height="29dp"
-        android:fontFamily="@font/roboto_medium"
-        android:text="N/A"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <Button
+        android:id="@+id/appoint_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Appoint"
+        android:textColorLink="#3F51B5"
+        app:layout_constraintBottom_toBottomOf="@+id/textView18"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.227"
+        app:layout_constraintHorizontal_bias="0.734"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.823" />
+        app:layout_constraintVertical_bias="0.824" />
 
     <TextView
         android:id="@+id/welcome11"
@@ -121,7 +134,7 @@
         app:layout_constraintHorizontal_bias="0.044"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.822" />
+        app:layout_constraintVertical_bias="0.79" />
 
     <TextView
         android:id="@+id/user_name5"
@@ -133,27 +146,10 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.056"
+        app:layout_constraintHorizontal_bias="0.085"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.065" />
-
-    <TextView
-        android:id="@+id/user_name9"
-        android:layout_width="283dp"
-        android:layout_height="84dp"
-        android:fontFamily="@font/roboto_medium"
-        android:text="This is your Appointment :)"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textColor="@color/black"
-        android:textSize="34sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.562"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.185" />
+        app:layout_constraintVertical_bias="0.058" />
 
     <TextView
         android:id="@+id/logoutTextBtn4"
@@ -257,19 +253,26 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@+id/textView18"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/appoint_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Appoint"
-        android:textColorLink="#3F51B5"
-        app:layout_constraintBottom_toBottomOf="@+id/textView18"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.734"
+        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.856" />
+        app:layout_constraintVertical_bias="0.424" />
+
+    <TextView
+        android:id="@+id/user_name9"
+        android:layout_width="401dp"
+        android:layout_height="93dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="Select Date and Time"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.164" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
