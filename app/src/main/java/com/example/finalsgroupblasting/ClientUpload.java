@@ -114,7 +114,7 @@ public class ClientUpload extends AppCompatActivity {
     private void handleFile(Uri fileUri) {
         String fileName = getFileName(fileUri);
 
-        if (fileUri.toString().endsWith(".jpg") || fileUri.toString().endsWith(".png")) {
+        if (fileUri.toString().endsWith(".jpg") ||fileUri.toString().endsWith(".png")) {
             addPhotoButton.setImageURI(fileUri);
         } else {
             Toast.makeText(this, "Selected File: ", Toast.LENGTH_SHORT).show();
