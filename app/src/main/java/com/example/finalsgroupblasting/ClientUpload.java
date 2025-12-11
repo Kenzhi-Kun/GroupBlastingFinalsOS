@@ -15,6 +15,7 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -22,6 +23,10 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
 
 public class ClientUpload extends AppCompatActivity {
 
@@ -49,6 +54,8 @@ public class ClientUpload extends AppCompatActivity {
         }
     });
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +78,55 @@ public class ClientUpload extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+//        DatabaseReference database = FirebaseDatabase.getInstance("https://finalsgroupblasting-6eab4d18-default-rtdb.firebaseio.com/").getReference("appointment");
+//
+//        database.orderByChild("date").equalTo(date2).addListenerForSingleValueEvent(new com.google.firebase.database.ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull com.google.firebase.database.DataSnapshot snapshot) {
+//                boolean isDuplicate = false;
+//                if (snapshot.exists()) {
+//
+//                    for (com.google.firebase.database.DataSnapshot appointmentSnapshot : snapshot.getChildren()) {
+//                        String existingTime = appointmentSnapshot.child("time").getValue(String.class);
+//                        if (existingTime != null && existingTime.equals(time2)) {
+//
+//                            isDuplicate = true;
+//                            break;
+//                        }
+//                    }
+//                }
+//
+//                if (isDuplicate) {
+//
+//                    Toast.makeText(ClientAppointment.this, "This appointment slot is already taken.", Toast.LENGTH_SHORT).show();
+//
+//                } else {
+//
+//                    String key = database.push().getKey();
+//                    HashMap<String, Object> hash = new HashMap<>();
+//                    hash.put("user", user.getEmail());
+//                    hash.put("date", date2);
+//                    hash.put("time", time2);
+//
+//                    if (key != null) {
+//                        database.child(key).setValue(hash)
+//                                .addOnCompleteListener(task -> {
+//                                    if (task.isSuccessful()) {
+//                                        Toast.makeText(ClientAppointment.this, "Appointment added!", Toast.LENGTH_SHORT).show();
+//                                    } else {
+//                                        Toast.makeText(ClientAppointment.this, "Appointment Failed: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
+//                                    }
+//                                });
+//                    }
+//                }
+//            }
+//            @Override
+//            public void onCancelled(@NonNull com.google.firebase.database.DatabaseError error) {
+//
+//                Toast.makeText(ClientAppointment.this, "Database Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
 
         filesButton.setOnClickListener(new View.OnClickListener() {
