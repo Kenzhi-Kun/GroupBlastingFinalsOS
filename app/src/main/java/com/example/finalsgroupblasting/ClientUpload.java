@@ -1,14 +1,20 @@
 package com.example.finalsgroupblasting;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.OpenableColumns;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -23,7 +29,25 @@ public class ClientUpload extends AppCompatActivity {
     private ImageView uploadButton;
     private ImageView filesButton;
     private TextView logoutButton;
+    private ImageView addPhotoButton;
     private TextView userName;
+
+    ActivityResultLauncher<Intent> filePickerLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+            Uri imageUri = result.getData().getData();
+
+            if (result.getData().getClipData() != null) {
+                int count = result.getData().getClipData().getItemCount();
+                for (int i = 0; i < count; i++) {
+                    Uri image = result.getData().getClipData().getItemAt(i).getUri();
+                    handleFile(image);
+                }
+            } else {
+                Uri image = result.getData().getData();
+                handleFile(image);
+            }
+        }
+    });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +63,7 @@ public class ClientUpload extends AppCompatActivity {
         filesButton = findViewById(R.id.files_home_client3);
         logoutButton = findViewById(R.id.logoutTextBtn3);
         userName = findViewById(R.id.user_name7);
+        addPhotoButton = findViewById((R.id.addImage));
         displayUsername();
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -66,18 +91,58 @@ public class ClientUpload extends AppCompatActivity {
         });
 
 
-
-
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
                 Intent intent3 = new Intent(ClientUpload.this, MainActivity.class);
                 startActivity(intent3);
                 finish();
             }
         });
 
+        addPhotoButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent5 = new Intent(Intent.ACTION_GET_CONTENT);
+                intent5.setType("*/*");
+                intent5.putExtra(Intent.EXTRA_MIME_TYPES, new String[]{
+                        "image/*",
+                        "application/pdf",
+                        "application/msword",
+                        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                });
+                intent5.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+                filePickerLauncher.launch(intent5);
+            }
+        });
+    }
+
+    private void handleFile(Uri fileUri) {
+        String fileName = getFileName(fileUri);
+
+        if (fileUri.toString().endsWith(".jpg") || fileUri.toString().endsWith(".png")) {
+            addPhotoButton.setImageURI(fileUri);
+        } else {
+            Toast.makeText(this, "Selected File: ", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public String getFileName(Uri nameUri) {
+        String result = null;
+
+        if (nameUri.getScheme().equals("content")) {
+            try (Cursor cursor = getContentResolver().query(nameUri, null, null, null, null)) {
+                if (cursor != null && cursor.moveToFirst()) {
+                    int index = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+                    if (index >= 0) {
+                        result = cursor.getString(index);
+                    }
+                }
+            }
+        }
+        if (result == null) {
+            result = nameUri.getLastPathSegment();
+        }
+        return result;
     }
 
     public void displayUsername() {
