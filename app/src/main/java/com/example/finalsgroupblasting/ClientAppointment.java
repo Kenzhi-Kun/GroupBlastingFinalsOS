@@ -139,15 +139,18 @@ public class ClientAppointment extends AppCompatActivity {
             return;
         }
 
-        String time2 = time.getText().toString();
-        String date2 = date.getText().toString();
+        String time2 = time.getText().toString().trim();
+        String date2 = date.getText().toString().trim();
 
-        if (time2.isEmpty() || date2.isEmpty()) {
-            Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
+        if (time2.isEmpty() || date2.isEmpty() || date2.equals("Date")) {
+            Toast.makeText(this, "Please select a date and enter a time.", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        DatabaseReference database = FirebaseDatabase.getInstance("https://finalsgroupblasting-6eab4d18-default-rtdb.firebaseio.com/").getReference("appointment");
+        String appointmentFolder = "Appointment-Folder";
+        DatabaseReference database = FirebaseDatabase.getInstance("https://finalsgroupblasting-6eab4d18-default-rtdb.firebaseio.com/")
+                .getReference("appointment")
+                .child(appointmentFolder);
 
         database.orderByChild("date").equalTo(date2).addListenerForSingleValueEvent(new com.google.firebase.database.ValueEventListener() {
             @Override
@@ -157,8 +160,7 @@ public class ClientAppointment extends AppCompatActivity {
 
                     for (com.google.firebase.database.DataSnapshot appointmentSnapshot : snapshot.getChildren()) {
                         String existingTime = appointmentSnapshot.child("time").getValue(String.class);
-                        if (existingTime != null && existingTime.equals(time2)) {
-
+                        if (existingTime != null && existingTime.equalsIgnoreCase(time2)) { // Use equalsIgnoreCase for a case-insensitive check
                             isDuplicate = true;
                             break;
                         }
@@ -168,10 +170,10 @@ public class ClientAppointment extends AppCompatActivity {
                 if (isDuplicate) {
 
                     Toast.makeText(ClientAppointment.this, "This appointment slot is already taken.", Toast.LENGTH_SHORT).show();
-
                 } else {
 
                     String key = database.push().getKey();
+
                     HashMap<String, Object> hash = new HashMap<>();
                     hash.put("user", user.getEmail());
                     hash.put("date", date2);
@@ -189,9 +191,9 @@ public class ClientAppointment extends AppCompatActivity {
                     }
                 }
             }
+
             @Override
             public void onCancelled(@NonNull com.google.firebase.database.DatabaseError error) {
-
                 Toast.makeText(ClientAppointment.this, "Database Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
