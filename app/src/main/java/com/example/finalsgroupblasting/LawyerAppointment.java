@@ -114,8 +114,6 @@ public class LawyerAppointment extends AppCompatActivity {
             }
         });
 
-
-
         appointmentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
