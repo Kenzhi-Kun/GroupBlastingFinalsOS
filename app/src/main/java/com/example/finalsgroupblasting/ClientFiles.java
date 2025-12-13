@@ -74,6 +74,8 @@ public class ClientFiles extends AppCompatActivity {
         });
     }
 
+    //Methods here TwT
+
     public void displayUsername() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
