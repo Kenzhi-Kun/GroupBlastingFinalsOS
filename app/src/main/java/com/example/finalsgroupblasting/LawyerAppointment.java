@@ -28,7 +28,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class LawyerAppointment extends AppCompatActivity {
 
@@ -56,7 +55,7 @@ public class LawyerAppointment extends AppCompatActivity {
             return insets;
         });
 
-        uploadButton = findViewById(R.id.upload_home_client9);
+        uploadButton = findViewById(R.id.file_home_client9);
         listOfClients = findViewById(R.id.files_home_client9);
         logoutTextBtn = findViewById(R.id.logoutTextBtn9);
         appointmentButton = findViewById(R.id.accept_button);

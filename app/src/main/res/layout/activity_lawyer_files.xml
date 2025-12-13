@@ -8,6 +8,12 @@
     tools:context=".LawyerFiles">
 
     <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="home_home_client7" />
+
+    <TextView
         android:id="@+id/textView19"
         android:layout_width="568dp"
         android:layout_height="81dp"
@@ -26,9 +32,10 @@
         android:background="@drawable/blue_rectange_shape"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.998" />
 
     <TextView
         android:id="@+id/welcome6"
@@ -59,38 +66,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.058" />
-
-    <TextView
-        android:id="@+id/user_name11"
-        android:layout_width="283dp"
-        android:layout_height="84dp"
-        android:fontFamily="@font/roboto_medium"
-        android:text="Hello!"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textColor="@color/black"
-        android:textSize="60sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.29" />
-
-    <TextView
-        android:id="@+id/user_name12"
-        android:layout_width="283dp"
-        android:layout_height="84dp"
-        android:fontFamily="@font/roboto_medium"
-        android:text="This is your lawyer files page :)"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textColor="@color/black"
-        android:textSize="34sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.445" />
 
     <TextView
         android:id="@+id/logoutTextBtn5"
@@ -135,7 +110,7 @@
         app:layout_constraintVertical_bias="0.983" />
 
     <ImageView
-        android:id="@+id/upload_home_client5"
+        android:id="@+id/file_home_client5"
         android:layout_width="40dp"
         android:layout_height="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -151,7 +126,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif"
-        android:text="UPLOAD"
+        android:text="FILES"
         android:textColor="@color/white"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -178,13 +153,59 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif"
-        android:text="FILES"
+        android:text="SCHED LIST"
         android:textColor="@color/white"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.787"
+        app:layout_constraintHorizontal_bias="0.82"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.983" />
+
+    <Button
+        android:id="@+id/affidavitsClick"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Affidavits"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.08"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView19"
+        app:layout_constraintVertical_bias="0.137" />
+
+    <Button
+        android:id="@+id/contractsClick"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Contracts"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView19"
+        app:layout_constraintVertical_bias="0.137" />
+
+    <Button
+        android:id="@+id/willsClick"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Wills"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.89"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView19"
+        app:layout_constraintVertical_bias="0.137" />
+
+    <ListView
+        android:id="@+id/listOfFiles"
+        android:layout_width="409dp"
+        android:layout_height="511dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewUpload6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView19"
+        app:layout_constraintVertical_bias="0.692" />
 </androidx.constraintlayout.widget.ConstraintLayout>
