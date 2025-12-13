@@ -37,6 +37,7 @@ public class LawyerAppointment extends AppCompatActivity {
     private ImageView listOfClients;
     private TextView logoutTextBtn;
     private Button appointmentButton;
+    private Button rejectButton;
     private ListView appointmentList;
 
 
@@ -59,6 +60,7 @@ public class LawyerAppointment extends AppCompatActivity {
         listOfClients = findViewById(R.id.files_home_client9);
         logoutTextBtn = findViewById(R.id.logoutTextBtn9);
         appointmentButton = findViewById(R.id.accept_button);
+        rejectButton = findViewById(R.id.reject_btn);
         userNameTextView = findViewById(R.id.user_name8);
         appointmentList = findViewById(R.id.appointment_list);
         displayUsername();
@@ -160,7 +162,39 @@ public class LawyerAppointment extends AppCompatActivity {
             }
         });
 
+        rejectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (list.isEmpty()) {
+                    Toast.makeText(LawyerAppointment.this, "No appointments to reject.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
+                database.orderByKey().limitToFirst(1).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (!snapshot.exists()) {
+                            Toast.makeText(LawyerAppointment.this, "No appointments found in database.", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        DataSnapshot firstAppointmentSnapshot = snapshot.getChildren().iterator().next();
+                        firstAppointmentSnapshot.getRef().removeValue()
+                                .addOnSuccessListener(aVoid -> {
+                                    Toast.makeText(LawyerAppointment.this, "Appointment Rejected", Toast.LENGTH_SHORT).show();
+                                })
+                                .addOnFailureListener(e -> {
+                                    Toast.makeText(LawyerAppointment.this, "Failed to reject appointment: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                });
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Toast.makeText(LawyerAppointment.this, "Database error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
     }
 
 
