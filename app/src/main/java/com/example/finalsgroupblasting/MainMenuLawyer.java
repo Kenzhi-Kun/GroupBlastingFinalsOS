@@ -7,7 +7,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,7 +20,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class MainMenuLawyer extends AppCompatActivity {
 
     private TextView userNameTextView;
-    private ImageView uploadButton;
+    private ImageView filesButton;
     private ImageView listOfClients;
     private ImageView appointmentButton;
     private TextView logoutTextBtn;
@@ -36,7 +35,7 @@ public class MainMenuLawyer extends AppCompatActivity {
         setContentView(R.layout.activity_main_menu_lawyer);
 
         appointmentButton = findViewById(R.id.appointment_home_client8);
-        uploadButton = findViewById(R.id.upload_home_client8);
+        filesButton = findViewById(R.id.file_home_client8);
         listOfClients = findViewById(R.id.files_home_client8);
         logoutTextBtn = findViewById(R.id.logoutTextBtn8);
 
@@ -64,9 +63,10 @@ public class MainMenuLawyer extends AppCompatActivity {
             }
         });
 
-        uploadButton.setOnClickListener(new View.OnClickListener() {
+        filesButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Toast.makeText(MainMenuLawyer.this, "This feature is not currently available.", Toast.LENGTH_SHORT).show();
+                Intent intent3 = new Intent (MainMenuLawyer.this, LawyerFiles.class);
+                startActivity(intent3);
             }
         });
 

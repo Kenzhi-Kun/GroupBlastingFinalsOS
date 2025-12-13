@@ -68,7 +68,8 @@ public class LawyerAppointment extends AppCompatActivity {
 
         uploadButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Toast.makeText(LawyerAppointment.this, "This feature is not currently available.", Toast.LENGTH_SHORT).show();
+                Intent intent3 = new Intent(LawyerAppointment.this, LawyerFiles.class);
+                startActivity(intent3);
             }
         });
 

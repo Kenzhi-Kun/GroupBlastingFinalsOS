@@ -3,7 +3,7 @@ package com.example.finalsgroupblasting;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
-import java.util.Comparator;import java.util.Date;
+import java.util.Date;
 import java.util.Locale;
 
 import android.content.Intent;
@@ -38,7 +38,7 @@ import java.util.ArrayList;
 public class ListOfClients extends AppCompatActivity {
 
     private TextView userNameTextView;
-    private ImageView uploadButton;
+    private ImageView fileButton;
     private ImageView listOfClients;
     private ImageView appointmentButton;
     private TextView logoutTextBtn;
@@ -56,7 +56,7 @@ public class ListOfClients extends AppCompatActivity {
         setContentView(R.layout.activity_list_of_clients);
 
         appointmentButton = findViewById(R.id.appointment_home_client7);
-        uploadButton = findViewById(R.id.upload_home_client7);
+        fileButton = findViewById(R.id.file_home_client7);
         listOfClients = findViewById(R.id.files_home_client7);
         logoutTextBtn = findViewById(R.id.logoutTextBtn7);
         appointmentList = findViewById(R.id.accepted_appointment_list);
@@ -79,9 +79,10 @@ public class ListOfClients extends AppCompatActivity {
             }
         });
 
-        uploadButton.setOnClickListener(new View.OnClickListener() {
+        fileButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Toast.makeText(ListOfClients.this, "This feature is not currently available.", Toast.LENGTH_SHORT).show();
+                Intent intent3 = new Intent(ListOfClients.this, LawyerFiles.class);
+                startActivity(intent3);
             }
         });
 

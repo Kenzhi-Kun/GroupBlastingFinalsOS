@@ -135,7 +135,7 @@
         app:layout_constraintVertical_bias="0.983" />
 
     <ImageView
-        android:id="@+id/upload_home_client8"
+        android:id="@+id/file_home_client8"
         android:layout_width="40dp"
         android:layout_height="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -151,7 +151,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif"
-        android:text="UPLOAD"
+        android:text="FILES"
         android:textColor="@color/white"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
