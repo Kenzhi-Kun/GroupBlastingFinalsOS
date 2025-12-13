@@ -59,7 +59,6 @@ public class LawyerFiles extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_lawyer_files);
 
-
         appointmentButton = findViewById(R.id.appointment_home_client5);
         filesButton = findViewById(R.id.file_home_client5);
         listOfClients = findViewById(R.id.files_home_client5);
