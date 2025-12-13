@@ -95,17 +95,17 @@ public class ListOfClients extends AppCompatActivity {
         });
 
         ArrayList<String> displayList = new ArrayList<>();
-        ArrayList<Appointment> appointments = new ArrayList<>(); // This holds the actual appointment objects for sorting and selection
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_single_choice, displayList);
-        appointmentList.setAdapter(adapter);
-        appointmentList.setChoiceMode(ListView.CHOICE_MODE_SINGLE); // This will visually show the user what item is selected.
+        ArrayList<Appointment> appointments = new ArrayList<>();
 
-        // NEW: Add a variable to store the key of the selected appointment.
-        final String[] selectedAppointmentKey = {null};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_multiple_choice, displayList);
+        appointmentList.setAdapter(adapter);
+        appointmentList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+
+        ArrayList<String> selectedAppointmentKeys = new ArrayList<>();
 
         DatabaseReference database = FirebaseDatabase.getInstance("https://finalsgroupblasting-6eab4d18-default-rtdb.firebaseio.com/").getReference("appointment").child("Accepted-Appointment");
 
-        // This listener fetches data, sorts it, and updates the UI
+
         database.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -120,7 +120,7 @@ public class ListOfClients extends AppCompatActivity {
                     }
                 }
 
-                // Sorting logic remains the same
+
                 Collections.sort(appointments, (a1, a2) -> {
                     SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy hh:mm a", Locale.US);
                     try {
@@ -146,38 +146,47 @@ public class ListOfClients extends AppCompatActivity {
             }
         });
 
-        // NEW: Set a listener to know which item the user clicks on in the list
         appointmentList.setOnItemClickListener((parent, view, position, id) -> {
-            // 'position' is the index of the clicked item (0, 1, 2, ...)
             if (position >= 0 && position < appointments.size()) {
-                // Get the corresponding appointment from our sorted list
-                Appointment selectedAppointment = appointments.get(position);
-                // Save its unique Firebase key
-                selectedAppointmentKey[0] = selectedAppointment.getKey();
-                Toast.makeText(ListOfClients.this, "Selected: " + selectedAppointment.getUser(), Toast.LENGTH_SHORT).show();
+                Appointment clickedAppointment = appointments.get(position);
+                String clickedKey = clickedAppointment.getKey();
+
+
+                if (selectedAppointmentKeys.contains(clickedKey)) {
+                    selectedAppointmentKeys.remove(clickedKey);
+                } else {
+
+                    selectedAppointmentKeys.add(clickedKey);
+                }
+                Toast.makeText(ListOfClients.this, selectedAppointmentKeys.size() + " item(s) selected.", Toast.LENGTH_SHORT).show();
             }
         });
 
-        // UPDATED: The "Done" button now acts on the selected item
+
+
         removeTopClientButton.setOnClickListener(v -> {
-            // Check if an item has been selected
-            if (selectedAppointmentKey[0] == null) {
-                Toast.makeText(ListOfClients.this, "Please select an appointment from the list first.", Toast.LENGTH_SHORT).show();
+
+            if (selectedAppointmentKeys.isEmpty()) {
+                Toast.makeText(ListOfClients.this, "Please select one or more appointments to mark as done.", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            // Use the saved key to delete the correct item from Firebase
-            database.child(selectedAppointmentKey[0]).removeValue()
-                    .addOnSuccessListener(aVoid -> {
-                        Toast.makeText(ListOfClients.this, "Appointment marked as done.", Toast.LENGTH_SHORT).show();
-                        // Reset the selection after removing the item
-                        selectedAppointmentKey[0] = null;
-                        appointmentList.clearChoices(); // Clears the visual selection indicator
-                    })
-                    .addOnFailureListener(e -> {
-                        Toast.makeText(ListOfClients.this, "Failed to remove appointment.", Toast.LENGTH_SHORT).show();
-                    });
+
+            for (String keyToRemove : selectedAppointmentKeys) {
+                // Remove each item from Firebase
+                database.child(keyToRemove).removeValue();
+            }
+
+
+            Toast.makeText(ListOfClients.this, selectedAppointmentKeys.size() + " appointment(s) marked as done.", Toast.LENGTH_SHORT).show();
+
+
+            selectedAppointmentKeys.clear();
+            appointmentList.clearChoices();
+
+            adapter.notifyDataSetChanged();
         });
+
     }
 
 
