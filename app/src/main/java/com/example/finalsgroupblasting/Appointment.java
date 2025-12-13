@@ -6,7 +6,6 @@ public class Appointment {
     private String time;
     private String date;
     private String key;
-
     public Appointment() {
     }
 
@@ -16,6 +15,7 @@ public class Appointment {
         this.time = time;
         this.date = date;
     }
+
 
     public String getKey() {
         return key;
