@@ -16,4 +16,6 @@
     <string name="enter_your_password">Enter your Password</string>
     <string name="enter_your_email">Enter your Email</string>
     <string name="enter_your_username">Enter your Username</string>
+    <string name="sign_up_btn">Sign Up</string>
+    <string name="date_prompt">Select a date</string>
 </resources>

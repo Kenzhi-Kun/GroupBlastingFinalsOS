@@ -2,14 +2,16 @@ package com.example.finalsgroupblasting;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,7 +27,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ClientAppointment extends AppCompatActivity {
@@ -35,9 +36,10 @@ public class ClientAppointment extends AppCompatActivity {
     private TextView userName;
     private CalendarView calendarView;
     private Button addtoQueue;
-    private EditText timeInput;
     private TextView date;
     private TextView time;
+
+    private Spinner timeDropdown;
 
 
     @Override
@@ -48,16 +50,18 @@ public class ClientAppointment extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_client_appointment);
-
+        timeDropdown = findViewById(R.id.dateDropdown);
+        String[] timeSlots={"9:00 AM","10:00 AM","11:00 AM","12:00 PM","1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, timeSlots);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        timeDropdown.setAdapter(adapter);
         addtoQueue = findViewById(R.id.appoint_button);
         uploadButton = findViewById(R.id.upload_home_client4);
         filesButton = findViewById(R.id.files_home_client4);
         logoutButton = findViewById(R.id.logoutTextBtn4);
         userName = findViewById(R.id.user_name5);
         calendarView = findViewById(R.id.calendarView);
-        timeInput = findViewById(R.id.time_input);
 
-        // Text ID's
         date = findViewById(R.id.date1);
         time = findViewById(R.id.time1);
 
@@ -98,20 +102,16 @@ public class ClientAppointment extends AppCompatActivity {
             }
         });
 
-        timeInput.addTextChangedListener(new android.text.TextWatcher() {
+        timeDropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedTime = parent.getItemAtPosition(position).toString();
+                time.setText(selectedTime);
             }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                time.setText(s);
-            }
-
-            @Override
-            public void afterTextChanged(android.text.Editable s) {
-
+            public void onNothingSelected(AdapterView<?> parent) {
+                time.setText("");
             }
         });
 

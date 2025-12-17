@@ -60,23 +60,18 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.792" />
 
-    <EditText
-        android:id="@+id/time_input"
-        android:layout_width="151dp"
-        android:layout_height="37dp"
-        android:autofillHints=""
-        android:background="@drawable/rounded_corner"
-        android:hint="  Input time"
-        android:inputType="text"
-        android:textColor="@color/black"
-        android:textColorHint="@color/black"
-        android:textSize="20sp"
+    <Spinner
+        android:id="@+id/dateDropdown"
+        android:layout_width="129dp"
+        android:layout_height="28dp"
+        android:prompt="@string/date_prompt"
+        android:spinnerMode="dropdown"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.784"
+        app:layout_constraintHorizontal_bias="0.894"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.747" />
+        app:layout_constraintVertical_bias="0.746" />
 
     <TextView
         android:id="@+id/welcome9"
