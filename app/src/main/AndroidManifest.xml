@@ -48,7 +48,7 @@
             android:name=".SignUp"
             android:exported="false" />
         <activity
-            android:name=".MainMenuUI"
+            android:name=".ForgotPassword"
             android:exported="false" />
     </application>
 

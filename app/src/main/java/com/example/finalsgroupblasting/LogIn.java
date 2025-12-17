@@ -9,6 +9,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
@@ -19,9 +20,10 @@ public class LogIn extends AppCompatActivity {
     private EditText emailInput;
     private EditText passwordInput;
     private Button loginButton;
-    private EditText userNameInput;
     private ProgressBar progressBar;
     private Button backButton;
+
+    private TextView forgotPassword;
     private FirebaseAuth mAuth;
 
     @Override
@@ -34,12 +36,13 @@ public class LogIn extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        userNameInput = findViewById(R.id.username_input);
         emailInput = findViewById(R.id.email_input);
         passwordInput = findViewById(R.id.password_input);
         loginButton = findViewById(R.id.login_button);
         progressBar = findViewById(R.id.login_progress_bar);
         backButton = findViewById(R.id.back2);
+        forgotPassword = findViewById(R.id.forgot_Password);
+
 
         loginButton.setOnClickListener(v -> {
             validateAndLogin();
@@ -52,19 +55,22 @@ public class LogIn extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LogIn.this, ForgotPassword.class);
+                startActivity(intent);
+            }
+        });
 
     }
+
+
 
     private void validateAndLogin() {
         String email = emailInput.getText().toString().trim();
         String password = passwordInput.getText().toString();
-        String username = userNameInput.getText().toString().trim();
 
-        if (username.isEmpty()) {
-            userNameInput.setError("Username is required");
-            userNameInput.requestFocus();
-            return;
-        }
 
         if (email.isEmpty()) {
             emailInput.setError("Email is required");

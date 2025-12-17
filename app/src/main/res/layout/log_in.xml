@@ -16,7 +16,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.777" />
+        app:layout_constraintVertical_bias="0.756" />
 
     <ImageView
         android:id="@+id/appointment_menu_lawyer"
@@ -30,23 +30,6 @@
         app:layout_constraintVertical_bias="0.116"
         app:srcCompat="@drawable/outline_account_circle_24"
         tools:ignore="ContentDescription" />
-
-    <EditText
-        android:id="@+id/username_input"
-        android:layout_width="357dp"
-        android:layout_height="48dp"
-        android:autofillHints=""
-        android:background="@drawable/rounded_corner"
-        android:hint="@string/username"
-        android:inputType="text"
-        android:textColor="@color/black"
-        android:textColorHint="@color/black"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.454" />
 
 
     <EditText
@@ -64,7 +47,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.55" />
+        app:layout_constraintVertical_bias="0.456" />
 
     <EditText
         android:id="@+id/password_input"
@@ -81,7 +64,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.648" />
+        app:layout_constraintVertical_bias="0.592" />
+
     <ProgressBar
         android:id="@+id/login_progress_bar"
         android:layout_width="wrap_content"
@@ -104,6 +88,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.976" />
+
+    <TextView
+        android:id="@+id/forgot_Password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Forgot Password?"
+        android:textColor="@color/red"
+        android:fontFamily="@font/roboto_medium"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.858"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.647" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
