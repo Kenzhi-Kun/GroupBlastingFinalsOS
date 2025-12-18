@@ -50,6 +50,9 @@
         <activity
             android:name=".ForgotPassword"
             android:exported="false" />
+        <activity 
+            android:name=".ClientAppointmentTab"
+            android:exported="false" />
     </application>
 
 </manifest>

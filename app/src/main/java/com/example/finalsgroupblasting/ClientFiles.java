@@ -87,7 +87,7 @@ public class ClientFiles extends AppCompatActivity {
 
         appointmentButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(ClientFiles.this, ClientAppointment.class);
+                Intent intent = new Intent(ClientFiles.this, ClientAppointmentTab.class);
                 startActivity(intent);
             }
         });

@@ -54,7 +54,7 @@ public class HomeActivity extends AppCompatActivity {
 
         appointmentButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, ClientAppointment.class);
+                Intent intent = new Intent(HomeActivity.this, ClientAppointmentTab.class);
                 startActivity(intent);
             }
         });

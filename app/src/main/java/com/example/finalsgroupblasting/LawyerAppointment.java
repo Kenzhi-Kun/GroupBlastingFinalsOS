@@ -103,7 +103,7 @@ public class LawyerAppointment extends AppCompatActivity {
                 for (DataSnapshot snapshot1 : snapshot.getChildren()) {
                     Appointment appointment = snapshot1.getValue(Appointment.class);
                     if (appointment != null) {
-                        String txt = "Name: " + appointment.getUser() + "\nDate: " + appointment.getDate() + "\nTime: " + appointment.getTime();
+                        String txt = "Name: " + appointment.getUser() + "\nDate: " + appointment.getDate() + "\nTime: " + appointment.getTime() + "\nReason: " + (appointment.getReason() != null ? appointment.getReason() : "N/A");
                         list.add(txt);
                     }
                 }

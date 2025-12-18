@@ -40,6 +40,10 @@ public class ClientAppointment extends AppCompatActivity {
     private TextView time;
 
     private Spinner timeDropdown;
+    private Spinner reasonSpinner; // Added reasonSpinner
+    private String selectedReason = "Affidavit"; // Default reason
+
+    private Button backButton;
 
 
     @Override
@@ -50,18 +54,27 @@ public class ClientAppointment extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_client_appointment);
+
         timeDropdown = findViewById(R.id.dateDropdown);
         String[] timeSlots={"9:00 AM","10:00 AM","11:00 AM","12:00 PM","1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, timeSlots);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        timeDropdown.setAdapter(adapter);
+        ArrayAdapter<String> timeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, timeSlots);
+        timeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        timeDropdown.setAdapter(timeAdapter);
+
+        // Initialize Reason Spinner
+        reasonSpinner = findViewById(R.id.reasonSpinner);
+        String[] reasons = {"Affidavit", "Contracts", "Wills"};
+        ArrayAdapter<String> reasonAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, reasons);
+        reasonAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        reasonSpinner.setAdapter(reasonAdapter);
+
         addtoQueue = findViewById(R.id.appoint_button);
         uploadButton = findViewById(R.id.upload_home_client4);
         filesButton = findViewById(R.id.files_home_client4);
         logoutButton = findViewById(R.id.logoutTextBtn4);
         userName = findViewById(R.id.user_name5);
         calendarView = findViewById(R.id.calendarView);
-
+        backButton = findViewById(R.id.backButton);
         date = findViewById(R.id.date1);
         time = findViewById(R.id.time1);
 
@@ -115,6 +128,18 @@ public class ClientAppointment extends AppCompatActivity {
             }
         });
 
+        reasonSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedReason = parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                selectedReason = "Affidavit";
+            }
+        });
+
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
@@ -127,6 +152,15 @@ public class ClientAppointment extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                     generateAppointment();
+            }
+        });
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ClientAppointment.this, HomeActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
     }
@@ -178,7 +212,7 @@ public class ClientAppointment extends AppCompatActivity {
                     hash.put("user", user.getEmail());
                     hash.put("date", date2);
                     hash.put("time", time2);
-
+                    hash.put("reason", selectedReason);
                     if (key != null) {
                         database.child(key).setValue(hash)
                                 .addOnCompleteListener(task -> {
