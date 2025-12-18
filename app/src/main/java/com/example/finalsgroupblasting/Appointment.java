@@ -5,18 +5,18 @@ public class Appointment {
     private String title;
     private String time;
     private String date;
-    private String userId;
-    private String reason; // Added reason field
+    private String user; // Changed from userId to user to match Firebase key
+    private String reason;
 
     public Appointment() {
     }
 
-    public Appointment(String id, String title, String time, String date, String userId, String reason) {
+    public Appointment(String id, String title, String time, String date, String user, String reason) {
         this.id = id;
         this.title = title;
         this.time = time;
         this.date = date;
-        this.userId = userId;
+        this.user = user;
         this.reason = reason;
     }
 
@@ -32,14 +32,12 @@ public class Appointment {
     public String getDate() { return date; }
     public void setDate(String date) { this.date = date; }
 
-    public String getUserId() { return userId; }
-    public void setUserId(String userId) { this.userId = userId; }
+    public String getUser() { return user; }
+    public void setUser(String user) { this.user = user; }
 
     public String getReason() { return reason; }
     public void setReason(String reason) { this.reason = reason; }
+    
     public void setKey(String key) { this.id = key; }
-
     public String getKey() { return id; }
-
-    public String getUser() { return userId; }
 }

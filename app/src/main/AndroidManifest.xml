@@ -53,6 +53,9 @@
         <activity 
             android:name=".ClientAppointmentTab"
             android:exported="false" />
+        <activity
+            android:name=".LawyerFiles"
+            android:exported="false" />
     </application>
 
 </manifest>
