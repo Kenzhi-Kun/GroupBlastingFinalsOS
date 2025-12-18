@@ -24,6 +24,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -188,13 +189,12 @@ public class ClientAppointment extends AppCompatActivity {
 
         database.orderByChild("date").equalTo(date2).addListenerForSingleValueEvent(new com.google.firebase.database.ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull com.google.firebase.database.DataSnapshot snapshot) {
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
                 boolean isDuplicate = false;
                 if (snapshot.exists()) {
-
-                    for (com.google.firebase.database.DataSnapshot appointmentSnapshot : snapshot.getChildren()) {
+                    for (DataSnapshot appointmentSnapshot : snapshot.getChildren()) {
                         String existingTime = appointmentSnapshot.child("time").getValue(String.class);
-                        if (existingTime != null && existingTime.equalsIgnoreCase(time2)) { // Use equalsIgnoreCase for a case-insensitive check
+                        if (existingTime != null && existingTime.equalsIgnoreCase(time2)) {
                             isDuplicate = true;
                             break;
                         }
@@ -202,26 +202,30 @@ public class ClientAppointment extends AppCompatActivity {
                 }
 
                 if (isDuplicate) {
-
                     Toast.makeText(ClientAppointment.this, "This appointment slot is already taken.", Toast.LENGTH_SHORT).show();
                 } else {
-
                     String key = database.push().getKey();
 
-                    HashMap<String, Object> hash = new HashMap<>();
-                    hash.put("user", user.getEmail());
-                    hash.put("date", date2);
-                    hash.put("time", time2);
-                    hash.put("reason", selectedReason);
+                    HashMap<String, Object> appointment = new HashMap<>();
+                    appointment.put("user", user.getEmail());
+                    appointment.put("date", date2);
+                    appointment.put("time", time2);
+                    appointment.put("reason", selectedReason);
                     if (key != null) {
-                        database.child(key).setValue(hash)
-                                .addOnCompleteListener(task -> {
-                                    if (task.isSuccessful()) {
-                                        Toast.makeText(ClientAppointment.this, "Appointment added!", Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        Toast.makeText(ClientAppointment.this, "Appointment Failed: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
-                                    }
-                                });
+                        database.child(key).setValue(appointment).addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(ClientAppointment.this, "Appointment added!", Toast.LENGTH_SHORT).show();
+
+                                // --- CREATE NOTIFICATION ---
+                                sendNotification(
+                                        "Client " + user.getEmail() + " booked an appointment at " + time2 + " on " + date2,
+                                        "Client Email " + user.getEmail()
+                                );
+
+                            } else {
+                                Toast.makeText(ClientAppointment.this, "Appointment Failed: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                            }
+                        });
                     }
                 }
             }
@@ -247,4 +251,24 @@ public class ClientAppointment extends AppCompatActivity {
             userName.setText("Anonymous");
         }
     }
+
+    private void sendNotification(String message, String clientEmail) {
+        // Push directly to top-level notifications folder
+        DatabaseReference notifRef = FirebaseDatabase.getInstance(
+                "https://finalsgroupblasting-6eab4d18-default-rtdb.firebaseio.com/"
+        ).getReference("appointment").child("Notifications").child("Lawyer-Notifications").push();
+
+        HashMap<String, Object> notification = new HashMap<>();
+        notification.put("message", message);
+        notification.put("seen", false);
+        notification.put("timestamp", System.currentTimeMillis());
+        notification.put("clientEmail", clientEmail); // mark who it's for
+
+        notifRef.setValue(notification)
+                .addOnFailureListener(e ->
+                        Toast.makeText(this, "Failed to send notification: " + e.getMessage(), Toast.LENGTH_SHORT).show()
+                );
+    }
+
+
 }

@@ -54,10 +54,15 @@
         app:layout_constraintVertical_bias="0.734" />
 
     <ListView
+        android:id="@+id/gayNotifs"
         android:layout_width="158dp"
         android:layout_height="296dp"
-        tools:layout_editor_absoluteX="252dp"
-        tools:layout_editor_absoluteY="82dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.19" />
 
     <TextView
         android:id="@+id/home_page_welcometo3"

@@ -203,9 +203,14 @@
         app:layout_constraintVertical_bias="0.983" />
 
     <ListView
+        android:id="@+id/gayNotification"
         android:layout_width="158dp"
         android:layout_height="296dp"
-        tools:layout_editor_absoluteX="252dp"
-        tools:layout_editor_absoluteY="82dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.992"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView14"
+        app:layout_constraintVertical_bias="0.19" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -28,6 +28,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class LawyerAppointment extends AppCompatActivity {
 
@@ -38,7 +39,6 @@ public class LawyerAppointment extends AppCompatActivity {
     private Button appointmentButton;
     private Button rejectButton;
     private ListView appointmentList;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,38 +64,33 @@ public class LawyerAppointment extends AppCompatActivity {
         appointmentList = findViewById(R.id.appointment_list);
         displayUsername();
 
-
-        uploadButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent3 = new Intent(LawyerAppointment.this, LawyerFiles.class);
-                startActivity(intent3);
-            }
+        uploadButton.setOnClickListener(v -> {
+            Intent intent3 = new Intent(LawyerAppointment.this, LawyerFiles.class);
+            startActivity(intent3);
         });
 
-        listOfClients.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(LawyerAppointment.this, ListOfClients.class);
-                startActivity(intent);
-            }
+        listOfClients.setOnClickListener(v -> {
+            Intent intent = new Intent(LawyerAppointment.this, ListOfClients.class);
+            startActivity(intent);
         });
 
-        logoutTextBtn.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
-                Intent intent4 = new Intent(LawyerAppointment.this, MainActivity.class);
-                startActivity(intent4);
-                finish();
-            }
+        logoutTextBtn.setOnClickListener(v -> {
+            FirebaseAuth.getInstance().signOut();
+            Intent intent4 = new Intent(LawyerAppointment.this, MainActivity.class);
+            startActivity(intent4);
+            finish();
         });
-
 
         ArrayList<String> list = new ArrayList<>();
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, list);
         appointmentList.setAdapter(adapter);
 
-        DatabaseReference database = FirebaseDatabase.getInstance("https://finalsgroupblasting-6eab4d18-default-rtdb.firebaseio.com/").getReference("appointment").child("Appointment-Folder");
-        DatabaseReference database2 = FirebaseDatabase.getInstance("https://finalsgroupblasting-6eab4d18-default-rtdb.firebaseio.com/").getReference("appointment").child("Accepted-Appointment");
+        DatabaseReference database = FirebaseDatabase.getInstance("https://finalsgroupblasting-6eab4d18-default-rtdb.firebaseio.com/")
+                .getReference("appointment").child("Appointment-Folder");
+        DatabaseReference database2 = FirebaseDatabase.getInstance("https://finalsgroupblasting-6eab4d18-default-rtdb.firebaseio.com/")
+                .getReference("appointment").child("Accepted-Appointment");
 
+        // Load appointments
         database.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -116,87 +111,135 @@ public class LawyerAppointment extends AppCompatActivity {
             }
         });
 
-        appointmentButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (list.isEmpty()) {
-                    Toast.makeText(LawyerAppointment.this, "No appointments to accept.", Toast.LENGTH_SHORT).show();
-                    return;
+        // Accept appointment
+        appointmentButton.setOnClickListener(v -> {
+            if (list.isEmpty()) {
+                Toast.makeText(LawyerAppointment.this, "No appointments to accept.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            database.orderByKey().limitToFirst(1).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (!snapshot.exists()) {
+                        Toast.makeText(LawyerAppointment.this, "No appointments found in database.", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    DataSnapshot firstAppointmentSnapshot = snapshot.getChildren().iterator().next();
+                    Appointment appointment = firstAppointmentSnapshot.getValue(Appointment.class);
+                    String appointmentKey = firstAppointmentSnapshot.getKey();
+
+                    if (appointment != null && appointmentKey != null) {
+
+                        database2.child(appointmentKey).setValue(appointment).addOnSuccessListener(aVoid -> {
+
+                            firstAppointmentSnapshot.getRef().removeValue().addOnSuccessListener(aVoid1 -> {
+                                Toast.makeText(LawyerAppointment.this, "Appointment Accepted", Toast.LENGTH_SHORT).show();
+
+                                // Send notification
+                                sendNotification(appointment.getUser(), "Appointment Accepted",
+                                        "Your appointment on " + appointment.getDate() + " at " + appointment.getTime() + " has been accepted.");
+
+                            }).addOnFailureListener(e -> {
+                                Toast.makeText(LawyerAppointment.this, "Failed to remove original appointment.", Toast.LENGTH_SHORT).show();
+                                database2.child(appointmentKey).removeValue();
+                            });
+                        }).addOnFailureListener(e -> {
+                            Toast.makeText(LawyerAppointment.this, "Failed to accept appointment: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        });
+                    }
                 }
 
-
-                database.orderByKey().limitToFirst(1).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (!snapshot.exists()) {
-                            Toast.makeText(LawyerAppointment.this, "No appointments found in database.", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-
-
-                        DataSnapshot firstAppointmentSnapshot = snapshot.getChildren().iterator().next();
-                        Appointment appointment = firstAppointmentSnapshot.getValue(Appointment.class);
-                        String appointmentKey = firstAppointmentSnapshot.getKey();
-
-                        if (appointment != null && appointmentKey != null) {
-
-                            database2.child(appointmentKey).setValue(appointment).addOnSuccessListener(aVoid -> {
-
-                                firstAppointmentSnapshot.getRef().removeValue().addOnSuccessListener(aVoid1 -> {
-                                    Toast.makeText(LawyerAppointment.this, "Appointment Accepted", Toast.LENGTH_SHORT).show();
-                                }).addOnFailureListener(e -> {
-                                    Toast.makeText(LawyerAppointment.this, "Failed to remove original appointment.", Toast.LENGTH_SHORT).show();
-                                    database2.child(appointmentKey).removeValue();
-                                });
-                            }).addOnFailureListener(e -> {
-                                Toast.makeText(LawyerAppointment.this, "Failed to accept appointment: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                            });
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        Toast.makeText(LawyerAppointment.this, "Database error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(LawyerAppointment.this, "Database error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
         });
 
-        rejectButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (list.isEmpty()) {
-                    Toast.makeText(LawyerAppointment.this, "No appointments to reject.", Toast.LENGTH_SHORT).show();
-                    return;
+        // Reject appointment
+        rejectButton.setOnClickListener(v -> {
+            if (list.isEmpty()) {
+                Toast.makeText(LawyerAppointment.this, "No appointments to reject.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            database.orderByKey().limitToFirst(1).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (!snapshot.exists()) {
+                        Toast.makeText(LawyerAppointment.this, "No appointments found in database.", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    DataSnapshot firstAppointmentSnapshot = snapshot.getChildren().iterator().next();
+                    Appointment appointment = firstAppointmentSnapshot.getValue(Appointment.class);
+
+                    firstAppointmentSnapshot.getRef().removeValue()
+                            .addOnSuccessListener(aVoid -> {
+                                Toast.makeText(LawyerAppointment.this, "Appointment Rejected", Toast.LENGTH_SHORT).show();
+
+                                // Send notification
+                                if (appointment != null) {
+                                    sendNotification(appointment.getUser(), "Appointment Rejected",
+                                            "Your appointment on " + appointment.getDate() + " at " + appointment.getTime() + " has been rejected.");
+                                }
+
+                            })
+                            .addOnFailureListener(e -> {
+                                Toast.makeText(LawyerAppointment.this, "Failed to reject appointment: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            });
                 }
 
-                database.orderByKey().limitToFirst(1).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (!snapshot.exists()) {
-                            Toast.makeText(LawyerAppointment.this, "No appointments found in database.", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-
-                        DataSnapshot firstAppointmentSnapshot = snapshot.getChildren().iterator().next();
-                        firstAppointmentSnapshot.getRef().removeValue()
-                                .addOnSuccessListener(aVoid -> {
-                                    Toast.makeText(LawyerAppointment.this, "Appointment Rejected", Toast.LENGTH_SHORT).show();
-                                })
-                                .addOnFailureListener(e -> {
-                                    Toast.makeText(LawyerAppointment.this, "Failed to reject appointment: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                                });
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        Toast.makeText(LawyerAppointment.this, "Database error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(LawyerAppointment.this, "Database error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
         });
     }
 
+    private void sendNotification(String clientEmail, String title, String message) {
+        // Reference to your users node
+        DatabaseReference usersRef = FirebaseDatabase.getInstance()
+                .getReference("users"); // make sure your users are stored here
+
+        // Find UID based on email
+        usersRef.orderByChild("email").equalTo(clientEmail)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            // Get the first matched user
+                            String uid = snapshot.getChildren().iterator().next().getKey();
+                            if (uid != null) {
+                                DatabaseReference notifRef = FirebaseDatabase.getInstance()
+                                        .getReference("appointment")
+                                        .child("Notifications")
+                                        .child("Client-Notifications")
+                                        .push();
+
+                                // Build notification object
+                                HashMap<String, Object> notif = new HashMap<>();
+                                notif.put("title", title);
+                                notif.put("message", message);
+                                notif.put("seen", false); // initially unread
+                                notif.put("timestamp", System.currentTimeMillis()); // optional for sorting
+
+                                notifRef.setValue(notif);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Toast.makeText(LawyerAppointment.this,
+                                "Error sending notification: " + error.getMessage(),
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
 
     private void displayUsername() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();

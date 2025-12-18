@@ -1,14 +1,7 @@
 package com.example.finalsgroupblasting;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Collections;
-import java.util.Date;
-import java.util.Locale;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
@@ -34,6 +27,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ListOfClients extends AppCompatActivity {
 
@@ -45,6 +39,11 @@ public class ListOfClients extends AppCompatActivity {
     private ListView appointmentList;
     private Button removeTopClientButton;
 
+    // Appointments
+    private DatabaseReference acceptedAppointmentsRef;
+    private ArrayList<String> appointmentListStrings;
+    private ArrayList<String> appointmentKeys;
+    private ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,13 +54,15 @@ public class ListOfClients extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_list_of_clients);
 
+        // UI elements
         appointmentButton = findViewById(R.id.appointment_home_client7);
         fileButton = findViewById(R.id.file_home_client7);
         listOfClients = findViewById(R.id.files_home_client7);
         logoutTextBtn = findViewById(R.id.logoutTextBtn7);
         appointmentList = findViewById(R.id.accepted_appointment_list);
         removeTopClientButton = findViewById(R.id.done_appointment);
-
+        userNameTextView = findViewById(R.id.user_name15);
+        displayUsername();
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -69,75 +70,43 @@ public class ListOfClients extends AppCompatActivity {
             return insets;
         });
 
-        userNameTextView = findViewById(R.id.user_name15);
-        displayUsername();
-
-        appointmentButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(ListOfClients.this, LawyerAppointment.class);
-                startActivity(intent);
-            }
+        // Navigation
+        appointmentButton.setOnClickListener(v -> startActivity(new Intent(ListOfClients.this, LawyerAppointment.class)));
+        fileButton.setOnClickListener(v -> startActivity(new Intent(ListOfClients.this, LawyerFiles.class)));
+        logoutTextBtn.setOnClickListener(v -> {
+            FirebaseAuth.getInstance().signOut();
+            startActivity(new Intent(ListOfClients.this, MainActivity.class));
+            finish();
         });
 
-        fileButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent3 = new Intent(ListOfClients.this, LawyerFiles.class);
-                startActivity(intent3);
-            }
-        });
+        // Firebase reference to accepted appointments
+        acceptedAppointmentsRef = FirebaseDatabase.getInstance(
+                        "https://finalsgroupblasting-6eab4d18-default-rtdb.firebaseio.com/")
+                .getReference("appointment").child("Accepted-Appointment");
 
-        logoutTextBtn.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
-                Intent intent4 = new Intent(ListOfClients.this, MainActivity.class);
-                startActivity(intent4);
-                finish();
-            }
-        });
-
-        ArrayList<String> displayList = new ArrayList<>();
-        ArrayList<Appointment> appointments = new ArrayList<>();
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_multiple_choice, displayList);
+        // List setup
+        appointmentListStrings = new ArrayList<>();
+        appointmentKeys = new ArrayList<>();
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, appointmentListStrings);
         appointmentList.setAdapter(adapter);
-        appointmentList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
-        ArrayList<String> selectedAppointmentKeys = new ArrayList<>();
-
-        DatabaseReference database = FirebaseDatabase.getInstance("https://finalsgroupblasting-6eab4d18-default-rtdb.firebaseio.com/").getReference("appointment").child("Accepted-Appointment");
-
-
-        database.addValueEventListener(new ValueEventListener() {
+        // Load accepted appointments
+        acceptedAppointmentsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                appointments.clear();
-                displayList.clear();
+                appointmentListStrings.clear();
+                appointmentKeys.clear();
 
-                for (DataSnapshot appointmentSnapshot : snapshot.getChildren()) {
-                    Appointment appointment = appointmentSnapshot.getValue(Appointment.class);
+                for (DataSnapshot snap : snapshot.getChildren()) {
+                    Appointment appointment = snap.getValue(Appointment.class);
                     if (appointment != null) {
-                        appointment.setKey(appointmentSnapshot.getKey());
-                        appointments.add(appointment);
+                        String txt = appointment.getUser() +
+                                "\nDate: " + appointment.getDate() +
+                                "\nTime: " + appointment.getTime();
+                        appointmentListStrings.add(txt);
+                        appointmentKeys.add(snap.getKey());
                     }
                 }
-
-
-                Collections.sort(appointments, (a1, a2) -> {
-                    SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy hh:mm a", Locale.US);
-                    try {
-                        Date d1 = sdf.parse(a1.getDate() + " " + a1.getTime());
-                        Date d2 = sdf.parse(a2.getDate() + " " + a2.getTime());
-                        return d1.compareTo(d2);
-                    } catch (ParseException e) {
-                        return 0;
-                    }
-                });
-
-                for (Appointment sortedAppointment : appointments) {
-                    String txt = "Name: " + sortedAppointment.getUser() + "\nDate: " + sortedAppointment.getDate() + "\nTime: " + sortedAppointment.getTime();
-                    displayList.add(txt);
-                }
-
                 adapter.notifyDataSetChanged();
             }
 
@@ -147,47 +116,74 @@ public class ListOfClients extends AppCompatActivity {
             }
         });
 
-        appointmentList.setOnItemClickListener((parent, view, position, id) -> {
-            if (position >= 0 && position < appointments.size()) {
-                Appointment clickedAppointment = appointments.get(position);
-                String clickedKey = clickedAppointment.getKey();
-
-
-                if (selectedAppointmentKeys.contains(clickedKey)) {
-                    selectedAppointmentKeys.remove(clickedKey);
-                } else {
-
-                    selectedAppointmentKeys.add(clickedKey);
-                }
-                Toast.makeText(ListOfClients.this, selectedAppointmentKeys.size() + " item(s) selected.", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-
-
+        // Complete button → remove appointments and send notifications
         removeTopClientButton.setOnClickListener(v -> {
-
-            if (selectedAppointmentKeys.isEmpty()) {
-                Toast.makeText(ListOfClients.this, "Please select one or more appointments to mark as done.", Toast.LENGTH_SHORT).show();
+            if (appointmentKeys.isEmpty()) {
+                Toast.makeText(ListOfClients.this, "No appointments to complete.", Toast.LENGTH_SHORT).show();
                 return;
             }
 
+            for (int i = 0; i < appointmentKeys.size(); i++) {
+                String key = appointmentKeys.get(i);
+                String clientEmail = appointmentListStrings.get(i).split("\n")[0]; // extract user/email
 
-            for (String keyToRemove : selectedAppointmentKeys) {
-                // Remove each item from Firebase
-                database.child(keyToRemove).removeValue();
+                // Remove appointment
+                acceptedAppointmentsRef.child(key).removeValue();
+
+                // Send notification
+                sendNotification(clientEmail, "Appointment Completed",
+                        "Your appointment has been completed. Thank you!");
             }
 
-
-            Toast.makeText(ListOfClients.this, selectedAppointmentKeys.size() + " appointment(s) marked as done.", Toast.LENGTH_SHORT).show();
-
-
-            selectedAppointmentKeys.clear();
-            appointmentList.clearChoices();
-
+            // Clear local list
+            appointmentListStrings.clear();
+            appointmentKeys.clear();
             adapter.notifyDataSetChanged();
-        });
 
+            Toast.makeText(ListOfClients.this, "All appointments completed and clients notified.", Toast.LENGTH_SHORT).show();
+        });
+    }
+
+    private void sendNotification(String clientEmail, String title, String message) {
+        DatabaseReference usersRef = FirebaseDatabase.getInstance()
+                .getReference("users");
+
+        usersRef.orderByChild("email").equalTo(clientEmail)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            // Get the UID of the client
+                            String uid = snapshot.getChildren().iterator().next().getKey();
+                            if (uid != null) {
+                                // Push the notification under the client's UID
+                                DatabaseReference notifRef = FirebaseDatabase.getInstance()
+                                        .getReference("appointment")
+                                        .child("Notifications")
+                                        .child("Client-Notifications")
+                                        .child(uid) // each client gets their own folder
+                                        .push();
+
+                                HashMap<String, Object> notif = new HashMap<>();
+                                notif.put("title", title);
+                                notif.put("message", message);
+                                notif.put("seen", false);
+                                notif.put("timestamp", System.currentTimeMillis());
+
+                                notifRef.setValue(notif)
+                                        .addOnSuccessListener(aVoid -> Toast.makeText(ListOfClients.this, "Client notified!", Toast.LENGTH_SHORT).show())
+                                        .addOnFailureListener(e -> Toast.makeText(ListOfClients.this, "Failed to notify client: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Toast.makeText(ListOfClients.this,
+                                "Error sending notification: " + error.getMessage(),
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
 

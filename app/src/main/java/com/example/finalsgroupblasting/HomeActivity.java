@@ -6,11 +6,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -18,6 +21,13 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -26,6 +36,11 @@ public class HomeActivity extends AppCompatActivity {
     private ImageView filesButton;
     private ImageView appointmentButton;
     private TextView logoutTextBtn;
+    private ListView listView;
+
+    private ArrayList<String> notificationList;
+    private ArrayAdapter<String> notificationAdapter;
+
 
 
     @Override
@@ -41,6 +56,13 @@ public class HomeActivity extends AppCompatActivity {
         uploadButton = findViewById(R.id.upload_home_client);
         filesButton = findViewById(R.id.files_home_client);
         logoutTextBtn = findViewById(R.id.logoutTextBtn);
+        listView = findViewById(R.id.gayNotification);
+
+        notificationList = new ArrayList<>();
+        notificationAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, notificationList);
+        listView.setAdapter(notificationAdapter);
+
+        loadNotifications();
 
         userNameTextView = findViewById(R.id.user_name);
 
@@ -82,6 +104,60 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
         }
+
+    private void loadNotifications() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user == null) return;
+
+        String uid = user.getUid();
+
+        DatabaseReference notifRef = FirebaseDatabase.getInstance(
+                        "https://finalsgroupblasting-6eab4d18-default-rtdb.firebaseio.com/"
+                ).getReference("appointment")
+                .child("Notifications")
+                .child(uid); // <--- read notifications specific to this client
+
+        notifRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                notificationList.clear();
+                for (DataSnapshot notifSnapshot : snapshot.getChildren()) {
+                    String title = notifSnapshot.child("title").getValue(String.class);
+                    String message = notifSnapshot.child("message").getValue(String.class);
+
+                    if (title != null && message != null) {
+                        notificationList.add(title + "\n" + message);
+                    }
+                }
+                notificationAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(HomeActivity.this, "Failed to load notifications: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // Optional: click to delete a notification
+        listView.setOnItemClickListener((parent, view, position, id) -> {
+            if (position < 0) return;
+
+            notifRef.orderByChild("timestamp").limitToFirst(position + 1)
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for (DataSnapshot child : snapshot.getChildren()) {
+                                child.getRef().removeValue();
+                                break; // remove only the clicked one
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {}
+                    });
+        });
+    }
+
 
     private void displayUsername() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
