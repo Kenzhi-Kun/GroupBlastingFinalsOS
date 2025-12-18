@@ -8,7 +8,7 @@
     tools:context=".MainMenuLawyer">
 
     <TextView
-        android:id="@+id/home_page_welcometo2"
+        android:id="@+id/home_page_welcometo4"
         android:layout_width="294dp"
         android:layout_height="77dp"
         android:fontFamily="cursive"
@@ -19,10 +19,45 @@
         android:textSize="48sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.437" />
+        app:layout_constraintVertical_bias="0.579" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="251dp"
+        android:layout_height="236dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.137"
+        app:srcCompat="@drawable/lawyer_and_law_firm_logo_template_on_transparent_background_png" />
+
+    <TextView
+        android:id="@+id/home_page_law3"
+        android:layout_width="355dp"
+        android:layout_height="110dp"
+        android:fontFamily="cursive"
+        android:text="Elayda Office"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="60sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.734" />
+
+    <ListView
+        android:layout_width="158dp"
+        android:layout_height="296dp"
+        tools:layout_editor_absoluteX="252dp"
+        tools:layout_editor_absoluteY="82dp" />
 
     <TextView
         android:id="@+id/home_page_welcometo3"
@@ -39,36 +74,7 @@
         app:layout_constraintHorizontal_bias="0.61"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.824" />
-
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="251dp"
-        android:layout_height="236dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.512"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.139"
-        app:srcCompat="@drawable/lawyer_and_law_firm_logo_template_on_transparent_background_png" />
-
-    <TextView
-        android:id="@+id/home_page_law2"
-        android:layout_width="355dp"
-        android:layout_height="110dp"
-        android:fontFamily="cursive"
-        android:text="Your Office"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textColor="@color/black"
-        android:textSize="60sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.482"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.565" />
+        app:layout_constraintVertical_bias="0.878" />
 
     <TextView
         android:id="@+id/textView"
